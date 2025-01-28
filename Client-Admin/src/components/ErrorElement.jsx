@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function ErrorElement() {
-  return (
-    <div>error 404</div>
-  )
+  return <div>error 404</div>;
 }
 
-export default ErrorElement
+export default ErrorElement;
