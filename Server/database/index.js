@@ -47,4 +47,4 @@ db.Product.belongsToMany(db.Carts, { through: "carts_products" });
 //   });
 
 // Export the sequelize instance and the Expense model
-module.exports = { sequelize };
+module.exports = db;

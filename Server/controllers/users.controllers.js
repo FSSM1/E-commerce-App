@@ -1,4 +1,4 @@
-const db = require("../models/index");
+const db = require("../database/index");
 const Users = db.User;
 
 module.exports = {
