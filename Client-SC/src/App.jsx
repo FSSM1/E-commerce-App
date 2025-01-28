@@ -1,35 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Contact from "./pages/Contact";
+import HomeLayout from "./pages/HomeLayout"
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+import ErrorElement from "./components/ErrorElement";
 
-export default App
+import Landing from "./pages/Landing";
+
+
+const router = createBrowserRouter([
+  {
+    path: '/', 
+    element: <HomeLayout />,
+    errorElement: <ErrorElement/>, 
+    children: [
+      {
+        path: 'home', 
+        element: <Landing />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path:'contact', 
+        element: <Contact />,
+        errorElement: < ErrorElement />,
+      },
+      // {
+      //   path: 'products/:id', 
+      //   element: <SingleProduct />,
+      //   errorElement: < ErrorElement />,
+    
+      // },
+      // {
+      //   path: 'cart', 
+      //   element: <Cart />
+      // },
+      // {
+      //   path: 'about', 
+      //   element: <About />
+      // },
+      // {
+      //   path: 'checkout', 
+      //   element: <Checkout />
+      // },
+      // {
+      //   path: 'orders', 
+      //   element: <Orders />
+      // },
+    ]
+  },
+  // {
+  //   path: '/login', 
+  //   element: <Login />,
+  //   errorElement: <Error/>, 
+  //   action: loginAction(store), 
+  // },
+  // {
+  //   path: '/register', 
+  //   element: <Register />,
+  //   errorElement: <Error/>, 
+  //   action: registerAction, 
+  // },
+  
+])
+
+const App = () => {
+  return <RouterProvider router={router} />
+};
+
+export default App;
