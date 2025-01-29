@@ -69,6 +69,7 @@ module.exports = {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
+
         const token = jwt.sign(
             { id: user.id, firstname: user.firstname, email: user.email, role: user.role },
             "jdjdjjdjjjddjjdjdjjdjdjdjd", // Store secret key in .env
@@ -81,6 +82,7 @@ module.exports = {
                 id: user.id,
                 firstname: user.firstname,
                 email: user.email,
+                password: user.password
             },
             token
         });

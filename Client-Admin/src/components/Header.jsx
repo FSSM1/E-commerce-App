@@ -6,7 +6,12 @@ import { useState } from "react";
 
 const Header = () => {
 
-  const [user, setuser] = useState(false);
+  // const [user, setuser] = useState(false);
+
+
+  const user= JSON.parse(localStorage.getItem('user'))
+  console.log("user", user)
+
   /// cartState and userState you can find the m in the utils/store.js
 
   return (
@@ -14,7 +19,7 @@ const Header = () => {
       <div className="align-element flex justify-center sm:justify-end">
         {user ? (
           <div className="flex gap-x-2 sm:gap-x-8 items-center">
-            <p className="text-xs sm:text-sm">Hello, {user?.username}</p>
+            <p className="text-xs sm:text-sm">Hello, {user.firstname}</p>
             <button className="btn btn-xs btn-outline btn-primary" onClick={()=>{}}></button>
           </div>
         ) : (

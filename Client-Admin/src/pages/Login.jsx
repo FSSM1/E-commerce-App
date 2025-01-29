@@ -10,7 +10,8 @@ const [error, setError] = useState("");
 const navigate = useNavigate()
 
 
-const handleLogin = async (e)=> {
+
+const handleLogin = async()=> {
     // e.preventDefault(); 
     
     try {
@@ -18,6 +19,8 @@ const handleLogin = async (e)=> {
             email, 
             password
         }); 
+
+        console.log('res data', response)
 
         if(response.status === 200) {
           const {token, user} =response.data; 
