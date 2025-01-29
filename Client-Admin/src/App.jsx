@@ -1,11 +1,16 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import Contact from "./pages/Contact";
+
 import HomeLayout from "./pages/HomeLayout"
 
 import ErrorElement from "./components/ErrorElement";
 import Landing from "./pages/Landing";
+import Products from "./pages/Products";
+
+import Users from "./pages/Users";
+import Profile from "./pages/Profile";
+
 
 
 const router = createBrowserRouter([
@@ -20,10 +25,21 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path:'contact', 
-        element: <Contact />,
+        path:'users', 
+        element: <Users />,
         errorElement: < ErrorElement />,
       },
+      {
+        path:'products', 
+        element: <Products />,
+        errorElement: < ErrorElement />,
+      },
+      {
+        path:'profile', 
+        element: <Profile />,
+        errorElement: < ErrorElement />,
+      }
+      
       // {
       //   path: 'products/:id', 
       //   element: <SingleProduct />,
