@@ -1,1 +1,92 @@
 @import "tailwindcss";
+.custom-container {
+    min-height: 100vh;
+    display: flex;
+  }
+  
+  .custom-image-section {
+    width: 50%;
+    background-image: url('https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/tile/Apple-iPhone-16-Pro-hero-geo-240909-lp.jpg.og.jpg?202501131610'); 
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .custom-form-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9fafb;
+  }
+  
+  .custom-form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+  }
+  
+  .custom-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  
+  .custom-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+  }
+  
+  .custom-input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    outline: none;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-input:focus {
+    border-color: #3b82f6;
+  }
+  
+  .custom-button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    color: white;
+    background-color: #3b82f6;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .custom-google-button {
+    background-color: #ef4444;
+  }
+  
+  .custom-google-button:hover {
+    background-color: #dc2626;
+  }
+  
+  .custom-link {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .custom-link a {
+    color: #3b82f6;
+    text-decoration: none;
+  }
+  
+  .custom-link a:hover {
+    color: #2563eb;
+  }
