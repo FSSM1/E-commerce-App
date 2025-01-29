@@ -2,76 +2,44 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { Eye, EyeOff } from "lucide-react"; // Import eye icons
 
 export default function SignUp() {
   const [firstname, setfirstName] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [imageUrl, setimageUrl] = useState("");
-  const [image, setimage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const [error, seterror] = useState("");
 
   const navigate = useNavigate();
 
-  //  const validatePassword = (password) => {
-  //     const errors = [];
-  //     if (password.length < 8) {
-  //         errors.push("password must contain at least 8 charaterees");
-  //     }
-
-  //     return {
-  //         isValid: errors.length === 0,
-  //         errors: errors
-  //     };
-  // };
-
-
-  useEffect(()=>{
-    handleAddUser()
-  },[])
+  useEffect(() => {
+    handleAddUser();
+  }, []);
 
   const handleAddUser = async () => {
     try {
-      // Uncomment and use the password validation if needed
-      // const passwordValidation = validatePassword(password);
-      // if (!passwordValidation.isValid) {
-      //   seterror("Password is too weak");
-      //   passwordValidation.errors.forEach((err) => seterror((prev) => prev + " " + err));
-      //   return;
-      // }
-  
       const response = await axios.post(
         "http://localhost:3000/api/users/signup",
-        {
-          firstname,
-          email,
-          password,
-        },
+        { firstname, email, password },
         { headers: { "Content-Type": "application/json" } }
       );
-      
-      toast.success("user registered successfully")
+
+      toast.success("User registered successfully!");
       console.log(response.data);
       navigate("/login");
-      
-      return null;
     } catch (err) {
       if (err.response) {
-        // If the server responded with an error status
         toast.error("Error: " + err.response.data.message || "Something went wrong");
       } else if (err.request) {
-        // If no response was received from the server
         toast.error("Network error, please try again.");
       } else {
-        // Other errors
         toast.error("Something went wrong, please try again.");
       }
-  
+
       console.log("Register user error", err);
-      return null;
     }
   };
-  
 
   return (
     <section className="h-screen grid place-items-center bg-gray-100 py-8">
@@ -81,10 +49,7 @@ export default function SignUp() {
         </h4>
 
         <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Enter Email
           </label>
           <input
@@ -97,14 +62,11 @@ export default function SignUp() {
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="firstname"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
             Enter FirstName
           </label>
           <input
-            type="firstname"
+            type="text"
             id="firstname"
             onChange={(e) => setfirstName(e.target.value)}
             placeholder="Enter your firstname"
@@ -112,27 +74,30 @@ export default function SignUp() {
           />
         </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
+        {/* Password Input with Toggle Visibility */}
+        <div className="mb-4 relative">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Enter Password
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             onChange={(e) => setpassword(e.target.value)}
             placeholder="Enter your password"
-            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
           />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-3 flex items-center text-gray-500 mt-7 cursor-pointer"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
         </div>
 
         <div className="mt-4">
           <button
-            onClick={() => {
-              handleAddUser();
-            }}
+            onClick={handleAddUser}
             className="w-full py-3 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Register
@@ -146,7 +111,6 @@ export default function SignUp() {
           </Link>
         </p>
       </div>
-  
     </section>
   );
 }
