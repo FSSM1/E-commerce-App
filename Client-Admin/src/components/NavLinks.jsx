@@ -3,8 +3,11 @@ import { NavLink } from "react-router-dom";
 
 const links = [
   { id: 1, url: "/", text: "home" },
-  { id: 2, url: "/contact", text: "contact" },
+  { id: 2, url: "/users", text: "users" },
+  { id: 3, url: "/products", text: "products" }, 
+  { id: 4, url: "/profile", text: "profile" }, 
 ];
+
 
 const NavLinks = () => {
   return (
