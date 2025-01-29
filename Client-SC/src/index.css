@@ -90,3 +90,49 @@
   .custom-link a:hover {
     color: #2563eb;
   }
+  /* Role Selection Styles */
+.custom-role-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .custom-role-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+  }
+  
+  .custom-role-options {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .custom-role-option {
+    flex: 1;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-role-option input {
+    display: none; /* Hide the default radio button */
+  }
+  
+  .custom-role-option span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  .custom-role-option.selected {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+  }
+  
+  .custom-role-option:hover {
+    border-color: #3b82f6;
+  }
