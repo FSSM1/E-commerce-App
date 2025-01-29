@@ -115,13 +115,13 @@ signup : async (req ,res) =>{
       })
 
       if (getuser) {
-          return res.status(400).send('User already exists');
+        return res.status(400).send('User already exists');
       } else {
           const user = await db.User.create({
               email: email, 
               firstname: firstname, 
               password: hashedPassword, 
-              role: role
+              role: role || "admin"
           });
 
           console.log("USer created: ", user);

@@ -1,133 +1,152 @@
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
-import './Signup.css'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
-export default function Signup() {
-    const [userName, setuserName] = useState("");
-    const [email, setemail] = useState("");
-    const [password, setpassword] = useState("");
-    const [imageUrl, setimageUrl] = useState("");
-    const [image, setimage] = useState(null);
-    const [error, seterror] = useState("");
+export default function SignUp() {
+  const [firstname, setfirstName] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [imageUrl, setimageUrl] = useState("");
+  const [image, setimage] = useState(null);
+  const [error, seterror] = useState("");
+
+  const navigate = useNavigate();
+
+  //  const validatePassword = (password) => {
+  //     const errors = [];
+  //     if (password.length < 8) {
+  //         errors.push("password must contain at least 8 charaterees");
+  //     }
+
+  //     return {
+  //         isValid: errors.length === 0,
+  //         errors: errors
+  //     };
+  // };
 
 
-const navigate= useNavigate()
+  useEffect(()=>{
+    handleAddUser()
+  },[])
 
-
-
-const handleImageUpload = async (e) => {
-    e.preventDefault(); 
-    const data = new FormData()
-    data.append('file', image); 
-    data.append('upload_preset', 'ecommerce'); 
-    data.append('cloud_name','dpqkzgd5z')
-    console.log(image)
-
-
-
+  const handleAddUser = async () => {
     try {
-      const response = await axios.post("https://api.cloudinary.com/v1_1/dpqkzgd5z/image/upload",data)
-      setimageUrl(response.data.secure_url)
-      console.log(response.data)
-    } catch (error) {
-      console.log("Error uploading image to cloudinary", error)
-    }
-
-    
- }; 
-
-
- 
-//  const validatePassword = (password) => {
-//     const errors = [];
-//     if (password.length < 8) {
-//         errors.push("password must contain at least 8 charaterees");
-//     }
-
-//     return {
-//         isValid: errors.length === 0,
-//         errors: errors
-//     };
-// };
-
-const handleAddUser = async () => {
-    try {
-        // const passwordValidation = validatePassword(password);
-        // if (!passwordValidation.isValid) {
-        //     seterror("Password is too weak");
-        //     passwordValidation.errors.forEach((err) =>
-        //         seterror((element) => element + "  " + err)
-        //     );
-        //     return;
-        // }
-
-        const response = await axios.post(
-            "http://localhost:3000/user/signup",
-            {
-                userName,
-                email,
-                password,
-                image: imageUrl,
-            },
-            { headers: { "Content-Type": "application/json" } }
-        );
-
-        console.log(response.data);
-        seterror('');
-        navigate("/user/login");
+      // Uncomment and use the password validation if needed
+      // const passwordValidation = validatePassword(password);
+      // if (!passwordValidation.isValid) {
+      //   seterror("Password is too weak");
+      //   passwordValidation.errors.forEach((err) => seterror((prev) => prev + " " + err));
+      //   return;
+      // }
+  
+      const response = await axios.post(
+        "http://localhost:3000/api/users/signup",
+        {
+          firstname,
+          email,
+          password,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      
+      toast.success("user registered successfully")
+      console.log(response.data);
+      navigate("/login");
+      
+      return null;
     } catch (err) {
-        if (err.response?.data === "User already exists") {
-            seterror("Email address is already registered. Please use a different email.");
-        } else {
-            console.log(err);
-            seterror("An error occurred signup");
-        }
+      if (err.response) {
+        // If the server responded with an error status
+        toast.error("Error: " + err.response.data.message || "Something went wrong");
+      } else if (err.request) {
+        // If no response was received from the server
+        toast.error("Network error, please try again.");
+      } else {
+        // Other errors
+        toast.error("Something went wrong, please try again.");
+      }
+  
+      console.log("Register user error", err);
+      return null;
     }
-};
-
-
+  };
+  
 
   return (
-    <div className='sign-up-main-div'>
-        <h2>sign up</h2>
-        <div>
-            <label htmlFor="fullName" className='signup-label'>name</label>
-            <input type="text" onChange={(e)=>{setuserName(e.target.value)} }  placeholder= "enter your full name"/>
+    <section className="h-screen grid place-items-center bg-gray-100 py-8">
+      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+        <h4 className="text-center text-3xl font-bold text-gray-800 mb-6">
+          Register
+        </h4>
+
+        <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Enter Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            onChange={(e) => setemail(e.target.value)}
+            placeholder="Enter your email"
+            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
 
-        <div>
-            <label htmlFor="email" className='signup-label'> enter email </label>
-            <input type="text"  onChange={(e)=>{setemail(e.target.value)}} placeholder='enter your email'/>  
+        <div className="mb-4">
+          <label
+            htmlFor="firstname"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Enter FirstName
+          </label>
+          <input
+            type="firstname"
+            id="firstname"
+            onChange={(e) => setfirstName(e.target.value)}
+            placeholder="Enter your firstname"
+            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
 
-        <div>
-            <label htmlFor="password" className='signup-label'> enter Passowrd</label>
-            <input type="text" onChange={(e)=>{setpassword(e.target.value)}} placeholder='enter your password'/>
+        <div className="mb-4">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Enter Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setpassword(e.target.value)}
+            placeholder="Enter your password"
+            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
 
-
-        <div>
-           <label htmlFor="image" className='signup-label'>post Image</label>
-           <input type="file" onChange={(e)=>setimage(e.target.files[0])}/>
-           <button  onClick={handleImageUpload}>Upload</button>
+        <div className="mt-4">
+          <button
+            onClick={() => {
+              handleAddUser();
+            }}
+            className="w-full py-3 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Register
+          </button>
         </div>
-        
-        <br />
-        
-        {error && (
-            <div className='error-message'>
-             <p>{error}</p>
-            </div>
-        )}
-        
-        <button className='signup-button' type='button ' onClick={handleAddUser}>Sign Up</button>
 
-        <div className='signup-link'>
-            <p>
-               login to your account<a onClick={()=>{navigate("/login")}}>Login</a>
-            </p>
-        </div>
-    </div>
-  )
+        <p className="text-center text-sm mt-4 text-gray-600">
+          Already a member?
+          <Link to="/login" className="ml-2 text-blue-500 hover:text-blue-700">
+            Login
+          </Link>
+        </p>
+      </div>
+  
+    </section>
+  );
 }

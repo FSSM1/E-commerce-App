@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 require("dotenv").config();
-const db = require("./database/index");
+const db = require("./database/index"); 
 const cors = require("cors");
 // Import routes
 // const cartsRouter = require("./routers/carts.routers");
