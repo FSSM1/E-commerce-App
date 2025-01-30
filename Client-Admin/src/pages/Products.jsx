@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Grid, Box, Button } from '@mui/material';
 import ProductList from '../components/products/ProductList.jsx';
@@ -16,7 +16,7 @@ const Products = () => {
     } catch (error) {
       console.error("Error fetching products:", error);
     }
-  };
+  };-
 
   useEffect(() => {
     fetchproduct();

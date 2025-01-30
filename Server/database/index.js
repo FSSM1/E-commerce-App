@@ -40,14 +40,14 @@ db.Category.hasMany(db.Product);
 db.Carts.belongsToMany(db.Product, { through: "carts_products" });
 db.Product.belongsToMany(db.Carts, { through: "carts_products" });
 
-// sequelize
-//   .sync({ alter: true })
-//   .then(() => {
-//     console.log("phrase table created successfully!");
-//   })
-//   .catch((error) => {
-//     console.error("Unable to create table : ", error);
-//   });
+sequelize
+  .sync({ alter: true })
+  .then(() => {
+    console.log("phrase table created successfully!");
+  })
+  .catch((error) => {
+    console.error("Unable to create table : ", error);
+  });
 
 // Export the sequelize instance and the Expense model
 module.exports = db;
