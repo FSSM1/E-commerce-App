@@ -2,12 +2,11 @@ import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Contact from "./pages/Contact";
-import HomeLayout from "./pages/HomeLayout"
-
+import HomeLayout from "./pages/HomeLayout";
 import ErrorElement from "./components/ErrorElement";
-
 import Landing from "./pages/Landing";
-
+import Allproduct from "./components/products/Allproduct"
+import Signup from "./pages/Signup"
 
 const router = createBrowserRouter([
   {
@@ -21,51 +20,26 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
+        path:'products', 
+        element: <Allproduct />,
+        errorElement: <ErrorElement />,
+      },
+      {
         path:'contact', 
         element: <Contact />,
-        errorElement: < ErrorElement />,
+        errorElement: <ErrorElement />,
       },
-      // {
-      //   path: 'products/:id', 
-      //   element: <SingleProduct />,
-      //   errorElement: < ErrorElement />,
-    
-      // },
-      // {
-      //   path: 'cart', 
-      //   element: <Cart />
-      // },
-      // {
-      //   path: 'about', 
-      //   element: <About />
-      // },
-      // {
-      //   path: 'checkout', 
-      //   element: <Checkout />
-      // },
-      // {
-      //   path: 'orders', 
-      //   element: <Orders />
-      // },
+      {
+        path:'signup', 
+        element: <Signup />,
+        errorElement: <ErrorElement />,
+      },
     ]
   },
-  // {
-  //   path: '/login', 
-  //   element: <Login />,
-  //   errorElement: <Error/>, 
-  //   action: loginAction(store), 
-  // },
-  // {
-  //   path: '/register', 
-  //   element: <Register />,
-  //   errorElement: <Error/>, 
-  //   action: registerAction, 
-  // },
-  
-])
+]);
 
 const App = () => {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 };
 
 export default App;
