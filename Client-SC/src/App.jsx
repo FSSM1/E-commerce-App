@@ -17,6 +17,8 @@ import ErrorElement from "./components/ErrorElement";
 
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,16 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
         errorElement: <ErrorElement />,
       },
     ],
@@ -80,6 +92,16 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
         errorElement: <ErrorElement />,
       },
     ],
