@@ -1,12 +1,13 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import Contact from "./pages/Contact";
-import HomeLayout from "./pages/HomeLayout";
+import Contact from "./pages/client/Contact";
+import HomeLayout from "./pages/client/HomeLayout";
 import ErrorElement from "./components/ErrorElement";
-import Landing from "./pages/Landing";
-import Allproduct from "./components/products/Allproduct"
-import Signup from "./pages/Signup"
+import Landing from "./pages/client/Landing";
+import Allproduct from "./components/productsClient/Allproduct"
+import Signup from "./pages/client/Signup"
+import Oneproduct from "./components/productsClient/Oneproduct"
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,9 @@ const router = createBrowserRouter([
         element: <Signup />,
         errorElement: <ErrorElement />,
       },
+      { path: "products/:id",
+         element: <Oneproduct />,
+         errorElement: <ErrorElement /> }
     ]
   },
 ]);
