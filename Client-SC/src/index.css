@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+  
+  .custom-image-section {
+    width: 50%;
+    background-image: url('https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/tile/Apple-iPhone-16-Pro-hero-geo-240909-lp.jpg.og.jpg?202501131610'); 
+    background-size: cover;
+    background-position: center;
+  }
+  
+  
