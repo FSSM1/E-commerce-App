@@ -38,7 +38,7 @@ const [data, setData] = useState([]);
         <Grid item xs={10} sx={{ display: "flex", flexDirection: "column" }} >
       <Grid container spacing={3}>
       {data.map((el) => (
-        <Grid item key={el.id} xs={12} sm={6} md={4} lg={3} onClick={()=>{navigate(`/products/${el.id}`)}}>
+        <Grid item key={el.id} xs={12} sm={6} md={4} lg={3} onClick={()=>{navigate(`/client/products/${el.id}`)}}>
           <Card sx={{ maxWidth: 345, borderRadius: 2, boxShadow: 3 }}>
             {/* CardMedia with fixed height and object-fit */}
             <CardMedia

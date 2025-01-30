@@ -1,18 +1,23 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 const Oneproduct = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
-
-  useEffect(async () => {
+  const fetchOneProduct = async (id) => {
     try {
-      const response= await axios.get(`http://localhost:3000/api/products/get/${id}`)
+      const response = await axios.get(
+        `http://localhost:3000/api/products/get/${id}`
+      );
       console.log(response.data.data);
-      setProduct(response.data.data)
+      setProduct(response.data.data);
     } catch (error) {
-      throw error
+      throw error;
     }
+  };
+
+  useEffect(() => {
+    fetchOneProduct(id);
   }, []);
 
   if (!product)
@@ -49,9 +54,6 @@ const Oneproduct = () => {
             <p className="text-lg text-gray-600 mt-2">
               Rating: ⭐ {product.rating}/5
             </p>
-            <p className="text-lg text-gray-600 mt-2">
-              Sold: {product.nbSold} units
-            </p>
           </div>
 
           {/* Add to Cart Button */}
@@ -61,13 +63,7 @@ const Oneproduct = () => {
         </div>
       </div>
 
-      {/* Product Details Section */}
-      <div className="mt-10">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Product Details</h2>
-        <p className="text-gray-600 leading-relaxed">
-          {product.description || "No additional details available."}
-        </p>
-      </div>
+    
     </div>
   );
 };

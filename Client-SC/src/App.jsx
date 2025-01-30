@@ -1,21 +1,36 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import Contact from "./pages/Contact";
-import HomeLayout from "./pages/HomeLayout";
+import ContactClient from "../src/pages/client/Contact"
+import ContactSeller from "../src/pages/seller/Contact"
+
+import HomeLayoutClient from "../src/pages/client/HomeLayout";
+import HomeLayoutSeller from "../src/pages/seller/HomeLayout";
+
+
+import LandingClient from "../src/pages/client/Landing"
+import LandingSeller from "../src/pages/seller/Landing"
+
+import ProductClient from  "./pages/client/Products"
+import ProductsSeller from "./pages/seller/Products";
+
+import Login from './pages/Login'
+
+
+
+
 import ErrorElement from "./components/ErrorElement";
-import Landing from "./pages/Landing";
-import Allproduct from "./components/products/Allproduct"
 import Signup from "./pages/Signup"
+import Oneproduct from "./components/productsClient/Oneproduct";
 
 const router = createBrowserRouter([
   {
     path: '/client', 
-    element: <HomeLayout />,
+    element: <HomeLayoutClient />,
     errorElement: <ErrorElement/>, 
     children: [
       {
-        path: 'Landing', 
+        path: 'home', 
         element: <LandingClient />,
         errorElement: <ErrorElement />,
       },
@@ -39,12 +54,17 @@ const router = createBrowserRouter([
         element: <Login />,
         errorElement: <ErrorElement />,
       },
+      {
+        path:'products/:id', 
+        element: <Oneproduct />,
+        errorElement: <ErrorElement />,
+      },
     ]
   },
 
   {
     path: '/seller', 
-    element: <HomeLayout />,
+    element: <HomeLayoutSeller />,
     errorElement: <ErrorElement/>, 
     children: [
       {
