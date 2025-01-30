@@ -7,6 +7,8 @@ module.exports = {
     dialect: process.env.db_dialect,
     username: process.env.db_username,
     localhost: process.env.db_host,
+    ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+    REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET
   },
 };
 
