@@ -42,17 +42,7 @@ const router = createBrowserRouter([
         errorElement: < ErrorElement />,
       },
 
-      {
-        path:'signup', 
-        element: <Signup />,
-        errorElement: < ErrorElement />,
-      },
-      {
-        path:'login', 
-        element: <Login />,
-        errorElement: < ErrorElement />,
-      },
-
+     
       
       // {
       //   path: 'products/:id', 
@@ -78,18 +68,17 @@ const router = createBrowserRouter([
       // },
     ]
   },
-  // {
-  //   path: '/login', 
-  //   element: <Login />,
-  //   errorElement: <Error/>, 
-  //   action: loginAction(store), 
-  // },
-  // {
-  //   path: '/register', 
-  //   element: <Register />,
-  //   errorElement: <Error/>, 
-  //   action: registerAction, 
-  // },
+  {
+    path:'signup', 
+    element: <Signup />,
+    errorElement: < ErrorElement />,
+  },
+  {
+    path:'login', 
+    element: <Login />,
+    errorElement: < ErrorElement />,
+  },
+
   
 ])
 
