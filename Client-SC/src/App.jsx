@@ -21,7 +21,7 @@ import ProductsSeller from "./pages/seller/Products";
 
 import ErrorElement from "./components/ErrorElement";
 
-import Allproduct from "./components/products/Allproduct"
+
 import Signup from "./pages/Signup"
 import Login from "./pages/Login";
 
