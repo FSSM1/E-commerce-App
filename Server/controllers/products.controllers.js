@@ -1,11 +1,13 @@
 const db = require("../database/index");
-const Product =db.Product
+const Product = db.Product;
 
 module.exports = {
   getAllProduct: async (req, res) => {
     try {
       const products = await Product.findAll();
-      res.status(200).send({ message: "success to get all Product", data: products });
+      res
+        .status(200)
+        .send({ message: "success to get all Product", data: products });
     } catch (err) {
       console.error({ messageError: "unable to get all Product", error: err });
     }
@@ -32,7 +34,10 @@ module.exports = {
       await Product.destroy({ where: { id: req.params.productId } });
       res.send({ message: "success to delete one Product" });
     } catch (err) {
-      console.error({ messageError: "unable to delete one Product", error: err });
+      console.error({
+        messageError: "unable to delete one Product",
+        error: err,
+      });
     }
   },
   updateOneProduct: async (req, res) => {
@@ -40,7 +45,10 @@ module.exports = {
       await Product.update(req.body, { where: { id: req.params.productId } });
       res.send({ message: "success to update one Product" });
     } catch (err) {
-      console.error({ messageError: "unable to update one Product", error: err });
+      console.error({
+        messageError: "unable to update one Product",
+        error: err,
+      });
     }
   },
 };
