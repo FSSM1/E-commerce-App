@@ -31,6 +31,9 @@ db.Carts = require("./models/carts")(sequelize, Sequelize);
 db.User.hasMany(db.Carts);
 db.Carts.belongsTo(db.User);
 
+db.User.hasMany(db.Product);
+db.Product.belongsTo(db.User);
+
 db.Product.belongsTo(db.Category);
 db.Category.hasMany(db.Product);
 
