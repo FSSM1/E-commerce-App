@@ -4,8 +4,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ContactClient from "../src/pages/client/Contact"
 import ContactSeller from "../src/pages/seller/Contact"
 
-import HomeLayout from "../src/pages/client/HomeLayout";
-import HomeLayout from "../src/pages/seller/HomeLayout";
+import HomeLayoutClient from "../src/pages/client/HomeLayout";
+import HomeLayoutSeller from "../src/pages/seller/HomeLayout";
 
 
 import LandingClient from "../src/pages/client/Landing"
@@ -28,7 +28,7 @@ import Login from "./pages/Login";
 const router = createBrowserRouter([
   {
     path: '/client', 
-    element: <HomeLayout />,
+    element: <HomeLayoutClient />,
     errorElement: <ErrorElement/>, 
     children: [
       {
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
 
   {
     path: '/seller', 
-    element: <HomeLayout />,
+    element: <HomeLayoutSeller />,
     errorElement: <ErrorElement/>, 
     children: [
       {
