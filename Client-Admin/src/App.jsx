@@ -11,6 +11,8 @@ import Products from "./pages/Products";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 
+import Signup from "./pages/SignUp.jsx";
+import Login from "./pages/Login.jsx";
 
 
 const router = createBrowserRouter([
@@ -38,7 +40,9 @@ const router = createBrowserRouter([
         path:'profile', 
         element: <Profile />,
         errorElement: < ErrorElement />,
-      }
+      },
+
+     
       
       // {
       //   path: 'products/:id', 
@@ -64,18 +68,17 @@ const router = createBrowserRouter([
       // },
     ]
   },
-  // {
-  //   path: '/login', 
-  //   element: <Login />,
-  //   errorElement: <Error/>, 
-  //   action: loginAction(store), 
-  // },
-  // {
-  //   path: '/register', 
-  //   element: <Register />,
-  //   errorElement: <Error/>, 
-  //   action: registerAction, 
-  // },
+  {
+    path:'signup', 
+    element: <Signup />,
+    errorElement: < ErrorElement />,
+  },
+  {
+    path:'login', 
+    element: <Login />,
+    errorElement: < ErrorElement />,
+  },
+
   
 ])
 
