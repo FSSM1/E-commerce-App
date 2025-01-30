@@ -1,38 +1,94 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import Contact from "./pages/Contact";
-import HomeLayout from "./pages/HomeLayout";
+import ContactClient from "../src/pages/client/Contact"
+import ContactSeller from "../src/pages/seller/Contact"
+
+import HomeLayout from "../src/pages/client/HomeLayout";
+import HomeLayout from "../src/pages/seller/HomeLayout";
+
+
+import LandingClient from "../src/pages/client/Landing"
+import LandingSeller from "../src/pages/seller/Landing"
+
+import ProductClient from  "./pages/client/Products"
+import ProductsSeller from "./pages/seller/Products";
+
+
+
+
+
+
 import ErrorElement from "./components/ErrorElement";
-import Landing from "./pages/Landing";
+
 import Allproduct from "./components/products/Allproduct"
 import Signup from "./pages/Signup"
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
-    path: '/', 
+    path: '/client', 
     element: <HomeLayout />,
-    errorElement: <ErrorElement />,
+    errorElement: <ErrorElement/>, 
     children: [
       {
-        path: 'home', 
-        element: <Landing />,
+        path: 'Landing', 
+        element: <LandingClient />,
         errorElement: <ErrorElement />,
       },
       {
         path:'products', 
-        element: <Allproduct />,
+        element: <ProductClient />,
         errorElement: <ErrorElement />,
       },
       {
         path:'contact', 
-        element: <Contact />,
+        element: <ContactClient />,
         errorElement: <ErrorElement />,
       },
       {
-        path: "signup",
+        path:'signup', 
         element: <Signup />,
         errorElement: <ErrorElement />,
+      },
+      {
+        path:'login', 
+        element: <Login />,
+        errorElement: <ErrorElement />,
+      },
+    ]
+  },
+
+  {
+    path: '/seller', 
+    element: <HomeLayout />,
+    errorElement: <ErrorElement/>, 
+    children: [
+      {
+        path: 'home', 
+        element: <LandingSeller />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path:'products', 
+        element: <ProductsSeller />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path:'contact', 
+        element: <ContactSeller />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path:'signup', 
+        element: <Signup />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path:'login', 
+        element: <Login />,
+        errorElement: <ErrorElement />,
+        
       },
     ]
   },
