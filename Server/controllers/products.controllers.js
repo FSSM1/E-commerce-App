@@ -25,12 +25,13 @@ module.exports = {
       const product = await Product.create(req.body);
       res.send({ message: "success to add one Product", data: product });
     } catch (err) {
+       
       console.error({ messageError: "unable to add one Product", error: err });
     }
   },
   deleteOneProduct: async (req, res) => {
     try {
-      await Users.destroy({ where: { id: req.params.productId } });
+      await Product.destroy({ where: { id: req.params.productId } });
       res.send({ message: "success to delete one Product" });
     } catch (err) {
       console.error({
