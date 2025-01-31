@@ -4,31 +4,32 @@ import NavLinks from "./NavLinks";
 
 const navbar = () => {
   return (
-    <nav className="bg-base-200">
-  <div className="navbar align-element flex justify-between items-center">
+    <nav className="bg-gray-800 text-white shadow-md">
+  <div className="navbar container mx-auto px-4 py-3 flex justify-between items-center">
     {/* Navbar Start */}
     <div className="navbar-start">
-      <NavLink to="/" className="hidden lg:flex btn btn-primary text-3xl items-center">
+      <NavLink to="/" className="hidden lg:flex btn btn-primary text-3xl items-center px-4 py-2">
         c
       </NavLink>
     </div>
 
     {/* Navbar Center (Menu Links) */}
     <div className="navbar-center hidden lg:flex">
-      <ul className="menu menu-horizontal flex space-x-4">
+      <ul className="menu menu-horizontal flex space-x-6">
         <NavLinks />
       </ul>
     </div>
 
     {/* Navbar End (Buttons) */}
-    <div className="navbar-end flex items-center space-x-4">
-      <NavLink to="/products" className="btn btn-ghost btn-circle btn-md" />
-      <NavLink to="/users" className="btn btn-ghost btn-circle btn-md" />
-      <NavLink to="/profile" className="btn btn-ghost btn-circle btn-md" />
+    <div className="navbar-end flex items-center space-x-6">
+      <NavLink to="/products" className="btn btn-outline btn-circle btn-lg text-lg border-gray-500 hover:bg-gray-700" />
+      <NavLink to="/users" className="btn btn-outline btn-circle btn-lg text-lg border-gray-500 hover:bg-gray-700" />
+      <NavLink to="/profile" className="btn btn-outline btn-circle btn-lg text-lg border-gray-500 hover:bg-gray-700" />
       <div className="indicator"></div>
     </div>
   </div>
 </nav>
+
 
   
   );

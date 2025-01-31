@@ -6,15 +6,16 @@ import EditProduct from "../../components/productsSeller/EditProduct"
 import Allproduct from "../../components/productsSeller/Allproduct"
 import axios from 'axios';
 function Products() {
-// console.log("helooooooooooooo saif");
+console.log("helooooooooooooo saif");
 const [showAddProduct, setShowAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null)
 const [product, setProducts] = useState([]);
+
 const user = JSON.parse(localStorage.getItem("user"));
-console.log(user,"hamadiiiiiiii");
+// console.log(user,"hamadiiiiiiii");
 
   const fetchproduct = async (id) => {
-    if(user.role == "admin"){
+    if(user.role == "seller"){
       try {
         const products = await axios.get(`http://127.0.0.1:3000/api/products/productseller/${user.id}`);
         console.log("Fetched products:", products.data.data);
@@ -27,32 +28,32 @@ console.log(user,"hamadiiiiiiii");
     
   };
   useEffect(() => {
-    // Fetch products from the backend
+    
     fetchproduct()
   }, []);
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://127.0.0.1:3000/api/products/delete/${id}`);
-      fetchproduct(); // Re-fetch the product list after deletion
+      fetchproduct(); 
     } catch (error) {
       console.error("Error deleting product:", error);
     }
   };
   const handleEdit = (product) => {
-    setSelectedProduct(product); // Set the user to edit
-    setShowAddProduct(false); // Ensure we hide the "Add User" form
+    setSelectedProduct(product); 
+    setShowAddProduct(false); 
   };
 
-  // Save the user (for Add or Edit)
+  
   const handleSave = async (productData) => {
     try {
       productData.userId = user.id;
       await axios.post(`http://127.0.0.1:3000/api/products/add`, productData);
       console.log("prod00000  ",productData.image);
-      fetchproduct(); // Refresh the list
-      setShowAddProduct(false); // Hide the form
-      setSelectedProduct(null); // Clear selected user after saving
+      fetchproduct(); 
+      setShowAddProduct(false); 
+      setSelectedProduct(null); 
     } catch (error) {
       console.error("Error saving user:", error);
     }
