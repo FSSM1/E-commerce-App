@@ -25,7 +25,7 @@ const Navbar = () => {
         <div className="container mx-auto flex justify-between items-center p-4">
           {/* Logo */}
           <div className="text-2xl font-bold">
-            <NavLink to="/">Exclusive</NavLink>
+            <NavLink to="/client/home">Exclusive</NavLink>
           </div>
 
           {/* Hamburger Menu for Mobile */}

@@ -29,7 +29,7 @@ export default function Login() {
         const { token, user } = response.data;
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", JSON.stringify(token));
-        if (user.role === "client") {
+        if (user.role === "Client") {
           navigate("/client/home");
         } else {
           navigate("/seller/home");

@@ -139,6 +139,17 @@ const Signup = () => {
             >
               Create Account
             </button>
+             {role === "Client" ? <span onClick={()=>{
+              navigate("/client/login");
+            }}>
+              log in
+            </span> : 
+            <span onClick={()=>{
+              navigate("/seller/login");
+            }}>
+              log in
+            </span>
+            }
           </form>
           <ToastContainer className="fixed top-4 left-1/2 transform -translate-x-1/2" />
         </div>
