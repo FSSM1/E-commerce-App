@@ -4,22 +4,21 @@ import { Grid, Box, Button } from '@mui/material';
 import ProductList from '../components/products/ProductList.jsx';
 import AddProduct from '../components/products/AddProduct.jsx';
 import EditProduct from '../components/products/EditProduct.jsx';
+import { fetchAllProducts } from "../../../Client-SC/src/features/productSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+
 const Products = () => {
-  const [data, setData] = useState([]);
-  const [showAddProduct, setShowAddProduct] = useState(false);
+  const dispatch=useDispatch()
+  const data = useSelector((state) => state.products.products);
+  console.log(data,'dataa from redux')
+    const [showAddProduct, setShowAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null)
-  const fetchproduct = async () => {
-    try {
-      const products = await axios.get("http://127.0.0.1:3000/api/products/getAll");
-      console.log("Fetched products:", products.data.data);
-      setData(products.data.data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+ 
 
   useEffect(() => {
-    fetchproduct();
+    dispatch(fetchAllProducts());
+      console.log(data,'dataa from redux')
+
   }, []);
 
   const handleDelete = async (id) => {
