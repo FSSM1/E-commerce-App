@@ -28,7 +28,7 @@ export default function Login() {
         const { token, user } = response.data;
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", JSON.stringify(token));
-        navigate("/");
+        user.role=="Client"?navigate("/Client/Products"):navigate("/seller/Products")
       }
     } catch (err) {
       console.error(err);
