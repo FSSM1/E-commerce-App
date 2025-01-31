@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import NavLinks from "../seller/NavLinks";
+import ProfileDropdown from "../ProfileDropdown";
 
 const Navbar = () => {
   return (
@@ -47,6 +48,9 @@ const Navbar = () => {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
+          </div>
+          <div className="hidden lg:flex space-x-8">
+            <ProfileDropdown />
           </div>
         </div>
       </nav>
