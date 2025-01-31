@@ -71,7 +71,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path:'products', 
+        path:'Products', 
         element: <ProductsSeller />,
         errorElement: <ErrorElement />,
       },
