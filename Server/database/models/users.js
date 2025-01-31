@@ -29,10 +29,10 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     role: {
-      type: DataTypes.ENUM("admin", "user", "seller"),
-      defaultValue: "user",
+      type: DataTypes.ENUM("admin", "client", "seller"),
+      defaultValue: "client",
       allowNull: false,
     },
-  });
+  },{timestamps : false});
   return User;
 };
