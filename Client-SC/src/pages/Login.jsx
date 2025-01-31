@@ -7,7 +7,6 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const [role, setRole] = useState("Client"); // Changed to useState for role selection
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
@@ -18,20 +17,21 @@ export default function Login() {
       const email = emailRef.current.value;
       const password = passwordRef.current.value;
 
-      const response = await axios.post("http://localhost:3000/api/users/login", {
-        email,
-        password,
-        role,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/users/login",
+        {
+          email,
+          password,
+        }
+      );
 
       if (response.status === 200) {
         const { token, user } = response.data;
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", JSON.stringify(token));
-        if(role === "client") {
+        if (user.role === "client") {
           navigate("/client/home");
-        }
-        else {
+        } else {
           navigate("/seller/home");
         }
       }
@@ -59,31 +59,11 @@ export default function Login() {
         <div className="w-full max-w-md p-8">
           <h2 className="text-2xl font-semibold mb-6">Login</h2>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Role
-            </label>
-            <div className="flex gap-4">
-              {["Client", "Seller"].map((option) => (
-                <div
-                  key={option}
-                  className={`flex-1 text-center py-2 border-2 rounded-lg cursor-pointer transition-all ${
-                    role === option
-                      ? "border-blue-500 bg-blue-100"
-                      : "border-gray-300"
-                  }`}
-                  onClick={() => setRole(option)}
-                >
-                  <span className="text-sm font-medium text-gray-700">
-                    {option}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -96,7 +76,10 @@ export default function Login() {
           </div>
 
           <div className="mb-6 relative">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
