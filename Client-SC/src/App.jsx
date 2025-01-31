@@ -14,16 +14,12 @@ import LandingSeller from "../src/pages/seller/Landing"
 import ProductClient from  "./pages/client/Products"
 import ProductsSeller from "./pages/seller/Products";
 
-
-
-
+import Login from './pages/Login';
+import Signup from "./pages/Signup";
 
 
 import ErrorElement from "./components/ErrorElement";
-
-
-import Signup from "./pages/Signup"
-import Login from "./pages/Login";
+import Oneproduct from "./components/productsClient/Oneproduct";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +28,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorElement/>, 
     children: [
       {
-        path: 'Landing', 
+        path: 'home', 
         element: <LandingClient />,
         errorElement: <ErrorElement />,
       },
@@ -54,6 +50,11 @@ const router = createBrowserRouter([
       {
         path:'login', 
         element: <Login />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path:'products/:id', 
+        element: <Oneproduct />,
         errorElement: <ErrorElement />,
       },
     ]
@@ -83,12 +84,6 @@ const router = createBrowserRouter([
         path:'signup', 
         element: <Signup />,
         errorElement: <ErrorElement />,
-      },
-      {
-        path:'login', 
-        element: <Login />,
-        errorElement: <ErrorElement />,
-        
       },
     ]
   },
