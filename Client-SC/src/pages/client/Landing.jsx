@@ -6,6 +6,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+import Carousel from "../../components/Carousel";
+import CategoryCarousel from "../../components/CategoryCarousel";
+
 const Landing = () => {
 
   
@@ -34,7 +37,7 @@ const Landing = () => {
       <section className="container mx-auto my-6 p-4">
         <img src="https://via.placeholder.com/1200x300" alt="Hero Banner" className="w-full rounded" />
       </section>
-
+      <Carousel/>
 
       
 
@@ -73,13 +76,8 @@ const Landing = () => {
 
 
       {/* Categories */}
-      <section className="container mx-auto p-4">
-        <h2 className="text-2xl font-semibold mb-4">Browse By Category</h2>
-        <div className="grid grid-cols-5 gap-4">
-          <div className="bg-white p-4 rounded shadow text-center">Category 1</div>
-          {/* Repeat for more categories */}
-        </div>
-      </section>
+     
+      <CategoryCarousel />
 
       {/* Flash Sales */}()
       <section className="container mx-auto p-4">
