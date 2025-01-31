@@ -15,10 +15,8 @@ import ProductsSeller from "./pages/seller/Products";
 
 import ErrorElement from "./components/ErrorElement";
 
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Settings from "./pages/Settings";
+import Signup from "./pages/Signup"
+import Oneproduct from "./components/productsClient/Oneproduct";
 
 const router = createBrowserRouter([
   {
@@ -75,7 +73,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: "products",
+        path:'Products', 
         element: <ProductsSeller />,
         errorElement: <ErrorElement />,
       },

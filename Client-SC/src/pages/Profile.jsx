@@ -58,8 +58,8 @@ const Profile = () => {
         {/* Additional Info (Optional) */}
         <Box sx={{ mt: 3 }}>
           <Typography variant="body2" color="text.secondary">
-            You can add more profile details here, such as address, phone
-            number, etc.
+            {/* You can add more profile details here, such as address, phone
+            number, etc. */}
           </Typography>
         </Box>
       </Paper>
