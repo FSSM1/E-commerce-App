@@ -53,16 +53,7 @@ const Products = () => {
       console.error("Error saving user:", error);
     }
   };
-  // const handleAdd = async (body) => {
-  //   try {
-  //     const response = await axios.post("http://127.0.0.1:3000/api/products/add", body);
-  //     console.log("Product added successfully:", response.data);
-  //     fetchproduct(); // Re-fetch the product list after adding
-  //     setShowAddProduct(false); // Switch back to the product list view
-  //   } catch (error) {
-  //     console.error("Error adding product:", error);
-  //   }
-  // };
+  
 
   return (
     <div>
