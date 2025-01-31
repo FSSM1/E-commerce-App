@@ -33,6 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "client",
       allowNull: false,
     },
-  });
+  },{timestamps : false});
   return User;
 };

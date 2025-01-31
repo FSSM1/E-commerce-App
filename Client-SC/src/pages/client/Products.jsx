@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Grid, Box, Button } from '@mui/material';
 import Allproduct from '../../components/productsClient/Allproduct';
 const Products = () => {
+  
   const [data, setData] = useState([]);
   const fetchproduct = async () => {
     try {

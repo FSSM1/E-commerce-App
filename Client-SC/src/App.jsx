@@ -13,9 +13,11 @@ import LandingSeller from "../src/pages/seller/Landing";
 import ProductClient from "./pages/client/Products";
 import ProductsSeller from "./pages/seller/Products";
 
-import ErrorElement from "./components/ErrorElement";
-
+import Login from './pages/Login';
 import Signup from "./pages/Signup";
+
+
+import ErrorElement from "./components/ErrorElement";
 import Oneproduct from "./components/productsClient/Oneproduct";
 
 const router = createBrowserRouter([

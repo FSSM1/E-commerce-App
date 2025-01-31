@@ -6,7 +6,10 @@ const Navbar = () => {
   return (
     <>
       <div className="bg-black text-white py-2">
-        <div className="container mx-auto flex justify-end px-4">
+        <div className="container mx-auto flex justify-between items-center px-4">
+          <span className="cursor-pointer">
+            <NavLink to="/home">admin login</NavLink>
+          </span>
           <select className="bg-black text-white border-none focus:outline-none">
             <option>English</option>
             <option>Other Language</option>
