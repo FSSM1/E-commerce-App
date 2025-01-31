@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      //unique: true,
     },
 
     password: {
@@ -29,9 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     role: {
-      type: DataTypes.ENUM("admin", "client", "seller"),
+      type: DataTypes.ENUM("admin", "user", "seller"),
       defaultValue: "user",
-      allowNull: false,
+      // allowNull: false,
     },
   });
   return User;
