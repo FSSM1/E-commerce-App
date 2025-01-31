@@ -15,7 +15,7 @@ import ProductsSeller from "./pages/seller/Products";
 
 import ErrorElement from "./components/ErrorElement";
 
-import Signup from "./pages/Signup"
+import Signup from "./pages/Signup";
 import Oneproduct from "./components/productsClient/Oneproduct";
 
 const router = createBrowserRouter([
@@ -50,6 +50,11 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
+        path: "products/:id",
+        element: <Oneproduct />,
+        errorElement: <ErrorElement />,
+      },
+      {
         path: "profile",
         element: <Profile />,
         errorElement: <ErrorElement />,
@@ -73,7 +78,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path:'Products', 
+        path: "Products",
         element: <ProductsSeller />,
         errorElement: <ErrorElement />,
       },
