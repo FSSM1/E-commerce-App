@@ -14,7 +14,7 @@ import Paiement from "../src/components/productsClient/Paiement";
 
 
 import LandingClient from "../src/pages/client/Landing";
-import LandingSeller from "../src/pages/seller/Landing";
+import LandingSeller from "../src/pages/client/Products";
 
 import ProductClient from "./pages/client/Products";
 import ProductsSeller from "./pages/seller/Products";
