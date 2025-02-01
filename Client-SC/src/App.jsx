@@ -1,25 +1,28 @@
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import ContactClient from "../src/pages/client/Contact"
-import ContactSeller from "../src/pages/seller/Contact"
+import ContactClient from "../src/pages/client/Contact";
+import ContactSeller from "../src/pages/seller/Contact";
 
 import HomeLayoutClient from "../src/pages/client/HomeLayout";
 import HomeLayoutSeller from "../src/pages/seller/HomeLayout";
 
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings"
 
-import LandingClient from "../src/pages/client/Landing"
-import LandingSeller from "../src/pages/seller/Landing"
+import LandingClient from "../src/pages/client/Landing";
+import LandingSeller from "../src/pages/seller/Landing";
 
-import ProductClient from  "./pages/client/Products"
+import ProductClient from "./pages/client/Products";
 import ProductsSeller from "./pages/seller/Products";
 
-import CartClinet from "./pages/client/Cart";
+import CartClient from "./pages/client/Cart";
 
 
 
 
 import ErrorElement from "./components/ErrorElement";
+import Oneproduct from "./components/productsClient/Oneproduct";
 
 
 import Signup from "./pages/Signup"
@@ -34,21 +37,21 @@ const router = createBrowserRouter([
   {
     path: '/client', 
     element: <HomeLayoutClient />,
-    errorElement: <ErrorElement/>, 
+    errorElement: <ErrorElement />,
     children: [
       {
-        path: 'Landing', 
+        path: "home",
         element: <LandingClient />,
         errorElement: <ErrorElement />,
       },
       {
-        path:'products', 
+        path: "products",
         element: <ProductClient />,
         errorElement: <ErrorElement />,
       },
       {
-        path:'cart', 
-        element: <CartClinet />,
+        path: 'cart',
+        element: <CartClient />,
         errorElement: <ErrorElement />,
       },
       {
@@ -57,50 +60,74 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path:'signup', 
+        path: "signup",
         element: <Signup />,
         errorElement: <ErrorElement />,
       },
       {
-        path:'login', 
+        path: "login",
         element: <Login />,
         errorElement: <ErrorElement />,
       },
-    ]
+      {
+        path: "products/:id",
+        element: <Oneproduct />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+        errorElement: <ErrorElement />,
+      },
+    ],
   },
 
   {
-    path: '/seller', 
+    path: "/seller",
     element: <HomeLayoutSeller />,
-    errorElement: <ErrorElement/>, 
+    errorElement: <ErrorElement />,
     children: [
       {
-        path: 'home', 
+        path: "home",
         element: <LandingSeller />,
         errorElement: <ErrorElement />,
       },
       {
-        path:'products', 
+        path: "Products",
         element: <ProductsSeller />,
         errorElement: <ErrorElement />,
       },
       {
-        path:'contact', 
+        path: "contact",
         element: <ContactSeller />,
         errorElement: <ErrorElement />,
       },
       {
-        path:'signup', 
+        path: "signup",
         element: <Signup />,
         errorElement: <ErrorElement />,
       },
       {
-        path:'login', 
+        path: "login",
         element: <Login />,
         errorElement: <ErrorElement />,
-        
       },
-    ]
+      {
+        path: "profile",
+        element: <Profile />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+        errorElement: <ErrorElement />,
+      },
+    ],
   },
 ]);
 

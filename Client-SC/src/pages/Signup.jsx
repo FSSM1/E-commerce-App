@@ -1,29 +1,46 @@
-import React, { useRef } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { Eye, EyeOff } from "lucide-react"; // Import Eye and EyeOff icons
 
 const Signup = () => {
-  const role = useRef("Client");
-  const firstname = useRef();
-  const email = useRef();
-  const password = useRef();
+  const [role, setRole] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleAddUser = async () => {
+    if (!firstname || !email || !password) {
+      toast.error("All fields are required!");
+      return;
+    }
+
+    const assignedRole = role === "Seller" ? "Seller" : "user";
+
     try {
       const response = await axios.post(
         "http://localhost:3000/api/users/signup",
         {
-          firstname: firstname.current.value,
-          email: email.current.value,
-          password: password.current.value,
-          role: role.current,
+          firstname,
+          email,
+          password,
+          role: assignedRole,
         }
       );
-      
-      toast.success("User registered successfully");
-      navigate("/login");
+
+      console.log("data", response.data);
+
+      if (assignedRole === "Seller") {
+        navigate("/seller/login");
+      } else {
+        navigate("/client/login");
+      }
     } catch (err) {
+      console.error(err);
       toast.error("Something went wrong, please try again.");
     }
   };
@@ -51,11 +68,11 @@ const Signup = () => {
                   <div
                     key={option}
                     className={`flex-1 text-center py-2 border-2 rounded-lg cursor-pointer transition-all ${
-                      role.current === option
+                      role === option
                         ? "border-blue-500 bg-blue-100"
                         : "border-gray-300"
                     }`}
-                    onClick={() => (role.current = option)}
+                    onClick={() => setRole(option)}
                   >
                     <span className="text-sm font-medium text-gray-700">
                       {option}
@@ -66,30 +83,89 @@ const Signup = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700" htmlFor="name">
+              <label
+                className="block text-sm font-medium text-gray-700"
+                htmlFor="name"
+              >
                 Name
               </label>
-              <input ref={firstname} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="name" type="text" placeholder="Name" />
+              <input
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                id="name"
+                type="text"
+                placeholder="Name"
+              />
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700" htmlFor="email">
+              <label
+                className="block text-sm font-medium text-gray-700"
+                htmlFor="email"
+              >
                 Email
               </label>
-              <input ref={email} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="email" type="email" placeholder="Email" />
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                id="email"
+                type="email"
+                placeholder="Email"
+              />
             </div>
 
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700" htmlFor="password">
+            <div className="mb-6 relative">
+              <label
+                className="block text-sm font-medium text-gray-700"
+                htmlFor="password"
+              >
                 Password
               </label>
-              <input ref={password} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="password" type="password" placeholder="Password" />
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+                id="password"
+                type={showPassword ? "text" : "password"} // Toggle between text and password
+                placeholder="Password"
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500 mt-7 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+              >
+                {showPassword ? <EyeOff size={25} /> : <Eye size={20} />}
+              </button>
             </div>
 
-            <button className="w-full px-4 py-2 text-white bg-black rounded-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black mb-4" type="button" onClick={handleAddUser}>
+            <button
+              className="w-full px-4 py-2 text-white bg-black rounded-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black mb-4"
+              type="button"
+              onClick={handleAddUser}
+            >
               Create Account
             </button>
+            {role === "user" ? (
+              <span
+                onClick={() => {
+                  navigate("/client/login");
+                }}
+              >
+                log in
+              </span>
+            ) : (
+              <span
+                onClick={() => {
+                  navigate("/seller/login");
+                }}
+              >
+                log in
+              </span>
+            )}
           </form>
+          <ToastContainer className="fixed top-4 left-1/2 transform -translate-x-1/2" />
         </div>
       </div>
     </div>

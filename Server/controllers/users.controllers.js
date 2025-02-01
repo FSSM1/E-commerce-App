@@ -138,7 +138,7 @@ module.exports = {
           email: email,
           firstname: firstname,
           password: hashedPassword,
-          role: role || "admin",
+          role: role || "user",
         });
 
         res.send(user);

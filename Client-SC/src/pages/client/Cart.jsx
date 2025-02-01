@@ -1,56 +1,90 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { Container, Card, CardContent, Typography, Button, Grid, CircularProgress, IconButton, TextField } from "@mui/material";
+import  { useEffect, useState } from "react";
+import { useSelector } from 'react-redux';
+import {
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  IconButton,
+  TextField,
+  CircularProgress
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-
-// eslint-disable-next-line react/prop-types
-const Cart = ({ userId }) => {
+const Cart = () => {
+  const { user } = useSelector((state) => state.user);
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userId) {
-      setError("User ID is missing.");
+    if (!user?.id) {
+      setError("Please login to view your cart");
       setLoading(false);
+      navigate('/client/login');
       return;
     }
-  
+
     const fetchCartItems = async () => {
       try {
-        console.log("Fetching cart for userId:", userId);  
-        const response = await axios.get(`http://localhost:3000/api/carts/getAll/${userId}`);
+        const response = await axios.get(
+          `http://localhost:3000/api/carts/getAll/${user.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
         setCartItems(response.data.data);
         setError(null);
       } catch (err) {
-        setError("Failed to load cart items.");
+        setError(err.response?.data?.message || "Failed to load cart items");
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchCartItems();
-  }, [userId]);
-  
+  }, [user, navigate]);
 
   const updateQuantity = async (id, quantity) => {
     if (quantity < 1) return;
     try {
-      await axios.put(`http://localhost:3000/api/carts/update/${id}`, { quantity });
-      setCartItems(cartItems.map(item => (item.id === id ? { ...item, quantity } : item)));
+      await axios.put(
+        `http://localhost:3000/api/carts/update/${id}`,
+        { quantity },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setCartItems(cartItems.map(item => 
+        item.id === id ? { ...item, quantity } : item
+      ));
     } catch (err) {
-      setError("Failed to update quantity.");
+      setError(err.response?.data?.message || "Failed to update quantity");
     }
   };
 
   const removeItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/carts/delete/${id}`);
+      await axios.delete(`http://localhost:3000/api/carts/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       setCartItems(cartItems.filter(item => item.id !== id));
     } catch (err) {
-      setError("Failed to remove item.");
+      setError(err.response?.data?.message || "Failed to remove item");
     }
   };
 
@@ -59,40 +93,55 @@ const Cart = ({ userId }) => {
   if (cartItems.length === 0) return <Typography>Your cart is empty.</Typography>;
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Shopping Cart</Typography>
-      <Grid container spacing={2}>
-        {cartItems.map((item) => (
-          <Grid item xs={12} key={item.id}>
-            <Card>
-              <CardContent>
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item xs={4}>
-                    <Typography variant="h6">{item.product.name}</Typography>
-                    <Typography variant="body2">Price: ${item.product.price.toFixed(2)}</Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <TextField
-                      type="number"
-                      value={item.quantity}
-                      onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
-                      size="small"
-                    />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <Typography variant="body2">Total: ${(item.product.price * item.quantity).toFixed(2)}</Typography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <IconButton onClick={() => removeItem(item.id)} color="error">
-                      <DeleteIcon />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        Shopping Cart
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Product</TableCell>
+              <TableCell align="center">Price</TableCell>
+              <TableCell align="center">Quantity</TableCell>
+              <TableCell align="center">Total</TableCell>
+              <TableCell align="center">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {cartItems.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>
+                  <Typography variant="h6">{item.product.name}</Typography>
+                </TableCell>
+                <TableCell align="center">
+                  ${item.product.price.toFixed(2)}
+                </TableCell>
+                <TableCell align="center">
+                  <TextField
+                    type="number"
+                    value={item.quantity}
+                    onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
+                    inputProps={{ min: 1 }}
+                    size="small"
+                  />
+                </TableCell>
+                <TableCell align="center">
+                  ${(item.product.price * item.quantity).toFixed(2)}
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton 
+                    onClick={() => removeItem(item.id)} 
+                    color="error"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
   );
 };

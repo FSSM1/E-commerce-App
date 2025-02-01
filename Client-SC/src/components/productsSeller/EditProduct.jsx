@@ -1,46 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import  { useState } from 'react'
 import { TextField, Button, Box, Typography } from '@mui/material';
-
-const AddProduct = ({ handleSave,setShowAddProduct, }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    quantity: '',
-    image: '',
-    nbSold: '',
-    categoryId: '',
-  });
-  useEffect(() =>{
-    setFormData({
-      name: '',
-      description: '',
-      price: '',
-      quantity: '',
-      image: '',
-      nbSold: '',
-      categoryId: ''
-    })
-  },[])
-
+const EditProduct = ({product,handleSave,setSelectedProduct}) => {
+  const [formData, setFormData] = useState(product)
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
-
+    const{name,value}=e.target
+    setFormData({...formData, [name]:value })
+  }
   const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSave(formData);
-  setShowAddProduct(false);
-  };
-
+    e.preventDefault()
+    handleSave(formData)
+  }
   return (
-    <Box sx={{ maxWidth: 500, margin: 'auto', padding: 3 }}>
+    
+     <Box sx={{ maxWidth: 500, margin: 'auto', padding: 3 }}>
       <Typography variant="h4" gutterBottom>
-        Add Product
+        Edit Product
       </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
@@ -110,17 +84,21 @@ const AddProduct = ({ handleSave,setShowAddProduct, }) => {
           margin="normal"
           required
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{ mt: 3 }}
-        >
-          Add Product
-        </Button>
+         <Button type="submit" variant="contained" color="primary" fullWidth>
+        Save Changes
+      </Button>
+      <Button
+        variant="outlined"
+        sx={{ borderColor: "gray", color: "gray", marginTop: "10px" }}
+        fullWidth
+        onClick={() => setSelectedProduct(null)}
+      >
+        Cancel
+      </Button>
       </form>
-    </Box>
+    </Box> 
+  
   );
 };
 
-export default AddProduct;
+export default EditProduct;

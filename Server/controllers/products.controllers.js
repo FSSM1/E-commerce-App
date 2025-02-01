@@ -12,6 +12,17 @@ module.exports = {
       console.error({ messageError: "unable to get all Product", error: err });
     }
   },
+  getAllProductSeller: async (req, res) => {
+    try {
+      const {id}=req.params
+      const products = await Product.findAll({where: { userId: id}});
+      res
+        .status(200)
+        .send({ message: "success to get all Product", data: products });
+    } catch (err) {
+      console.error({ messageError: "unable to get all Product", error: err });
+    }
+  },
   getOneProduct: async (req, res) => {
     try {
       const product = await Product.findByPk(req.params.productId);
@@ -25,7 +36,7 @@ module.exports = {
       const product = await Product.create(req.body);
       res.send({ message: "success to add one Product", data: product });
     } catch (err) {
-       
+      
       console.error({ messageError: "unable to add one Product", error: err });
     }
   },

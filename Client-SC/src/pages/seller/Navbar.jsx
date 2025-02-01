@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
-import NavLinks from "./NavLinks";
+import NavLinks from "../seller/NavLinks";
+import ProfileDropdown from "../ProfileDropdown";
 
 const Navbar = () => {
   return (
     <>
       <div className="bg-black text-white py-2">
-        <div className="container mx-auto flex justify-end px-4">
+        <div className="container mx-auto flex justify-between items-center px-4">
+          <span className="cursor-pointer">
+            <NavLink to="/home">admin login</NavLink>
+          </span>
           <select className="bg-black text-white border-none focus:outline-none">
             <option>English</option>
             <option>Other Language</option>
@@ -44,6 +48,9 @@ const Navbar = () => {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
+          </div>
+          <div className="hidden lg:flex space-x-8">
+            <ProfileDropdown />
           </div>
         </div>
       </nav>

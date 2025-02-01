@@ -22,8 +22,12 @@ function Allproduct() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/products/getAll");
+        const response = await axios.get(
+          "http://localhost:3000/api/products/getAll"
+        );
         setProducts(response.data.data);
+        console.log(response.data.data);
+
         setError(null);
       } catch (err) {
         setError("Failed to load products. Please try again later.");
@@ -37,20 +41,44 @@ function Allproduct() {
 
   const addProduct = async (productData) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/products/add", productData);
+      const response = await axios.post(
+        "http://localhost:3000/api/products/add",
+        productData
+      );
       console.log("Product added:", response.data);
       setProducts([...products, response.data.data]);
     } catch (err) {
       console.error("Failed to add product:", err);
     }
   };
-
   const addToCart = async (productId) => {
     try {
-      await axios.post("http://localhost:3000/api/cart/add", { productId });
+      const userId = 1;
+
+      const response = await axios.get(
+        `http://localhost:3000/api/products/get/${productId}`
+      );
+      const product = response.data.data;
+
+      if (!product) {
+        console.error("Product not found");
+        return;
+      }
+
+      const quantity = product.quantity;
+
+      await axios.post("http://localhost:3000/api/carts/add", {
+        userId,
+        productId,
+        quantity,
+      });
+
       console.log("Product added to cart:", productId);
     } catch (err) {
-      console.error("Failed to add product to cart:", err);
+      console.error(
+        "Failed to add product to cart:",
+        err.response?.data || err.message
+      );
     }
   };
 
@@ -66,50 +94,71 @@ function Allproduct() {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom sx={{ textAlign: "center" }}>
+      <Typography
+        variant="h3"
+        component="h1"
+        gutterBottom
+        sx={{ textAlign: "center" }}
+      >
         Our Products
       </Typography>
       <Grid container spacing={4}>
-        {(loading ? Array.from(new Array(6)) : products).map((product, index) => (
-          <Grid item key={product?.id || index} xs={12} sm={6} md={4} lg={3}>
-            <Card>
-              {loading ? (
-                <Skeleton variant="rectangular" height={200} />
-              ) : (
-                <CardMedia component="img" height="200" image={product.image} alt={product.name} />
-              )}
-              <CardContent>
+        {(loading ? Array.from(new Array(6)) : products).map(
+          (product, index) => (
+            <Grid item key={product?.id || index} xs={12} sm={6} md={4} lg={3}>
+              <Card>
                 {loading ? (
-                  <>
-                    <Skeleton height={32} />
-                    <Skeleton width="60%" />
-                  </>
+                  <Skeleton variant="rectangular" height={200} />
                 ) : (
-                  <>
-                    <Typography gutterBottom variant="h6" component="h2">
-                      {product.name}
-                    </Typography>
-                    <Typography variant="h6">${product.price.toFixed(2)}</Typography>
-                  </>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={product.image}
+                    alt={product.name}
+                  />
                 )}
-              </CardContent>
-              <CardActions>
-                {loading ? (
-                  <Skeleton width="100%" height={40} />
-                ) : (
-                  <>
-                    <Button component={Link} to={`/products/get/${product.id}`} variant="outlined">
-                      Details
-                    </Button>
-                    <Button variant="contained" onClick={() => addToCart(product.id)}>
-                      Add to Cart
-                    </Button>
-                  </>
-                )}
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
+                <CardContent>
+                  {loading ? (
+                    <>
+                      <Skeleton height={32} />
+                      <Skeleton width="60%" />
+                    </>
+                  ) : (
+                    <>
+                      <Typography gutterBottom variant="h6" component="h2">
+                        {product.name}
+                      </Typography>
+                      <Typography variant="h6">
+                        ${product.price.toFixed(2)}
+                      </Typography>
+                    </>
+                  )}
+                </CardContent>
+                <CardActions>
+                  {loading ? (
+                    <Skeleton width="100%" height={40} />
+                  ) : (
+                    <>
+                      <Button
+                        component={Link}
+                        to={`/products/get/${product.id}`}
+                        variant="outlined"
+                      >
+                        Details
+                      </Button>
+                      <Button
+                        variant="contained"
+                        onClick={() => addToCart(product.id)}
+                      >
+                        Add to Cart
+                      </Button>
+                    </>
+                  )}
+                </CardActions>
+              </Card>
+            </Grid>
+          )
+        )}
       </Grid>
     </Container>
   );
