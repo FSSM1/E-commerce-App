@@ -105,8 +105,8 @@ const AddUser = ({ user, onSave, setShowAddUser }) => {
         sx={{ mt: 2, mb: 2 }}
       >
         <MenuItem value="admin">Admin</MenuItem>
-        <MenuItem value="user">User</MenuItem>
-        <MenuItem value="seller">Seller</MenuItem>
+        <MenuItem value="Client">Client</MenuItem>
+        <MenuItem value="Seller">Seller</MenuItem>
       </Select>
       <Button type="submit" variant="contained" color="primary">
         Add User
