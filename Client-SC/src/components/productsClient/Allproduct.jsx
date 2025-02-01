@@ -84,10 +84,12 @@ function Allproduct() {
 
   return (
     <div className="flex h-screen">
+      
       {/* Sidebar for Categories */}
       <div className="w-64 bg-gray-50 p-6 shadow-md fixed h-full overflow-y-auto">
         <h2 className="text-xl font-bold mb-6 text-gray-800">Categories</h2>
         <ul className="space-y-2">
+          
           {categories.map((category) => (
             <li
               key={category.id}
