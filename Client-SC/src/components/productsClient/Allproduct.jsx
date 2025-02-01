@@ -1,21 +1,23 @@
-import { React, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import { Box, Pagination } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import { React, useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { Box, Pagination } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
 import { useNavigate } from "react-router-dom";
-import { SearchContext } from '../productsClient/SearchContext';
-import Typography from '@mui/material/Typography';
+import { SearchContext } from "../productsClient/SearchContext";
+import Typography from "@mui/material/Typography";
+import { useCart } from "../../context/CartContext";
 
 function Allproduct() {
   const navigate = useNavigate();
   const [data, setData] = useState([]); // All products
   const [filteredData, setFilteredData] = useState([]); // Filtered products
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState(''); // Selected category
+  const [selectedCategory, setSelectedCategory] = useState(""); // Selected category
   const [categories, setCategories] = useState([]); // All categories
   const itemsPerPage = 12;
+  const { dispatch } = useCart();
 
   // Access search term from context
   const { searchTerm } = useContext(SearchContext);
@@ -23,10 +25,12 @@ function Allproduct() {
   // Fetch categories
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:3000/api/categories/getAll");
+      const response = await axios.get(
+        "http://127.0.0.1:3000/api/categories/getAll"
+      );
       console.log("Fetched categories:", response.data.data);
       // Add "All" category to the list
-      setCategories([{ id: 'all', name: 'All' }, ...response.data.data]);
+      setCategories([{ id: "all", name: "All" }, ...response.data.data]);
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -35,7 +39,9 @@ function Allproduct() {
   // Fetch products
   const fetchProducts = async () => {
     try {
-      const products = await axios.get("http://127.0.0.1:3000/api/products/getAll");
+      const products = await axios.get(
+        "http://127.0.0.1:3000/api/products/getAll"
+      );
       console.log("Fetched products:", products.data.data);
       setData(products.data.data);
       setFilteredData(products.data.data); // Initialize filtered data with all products
@@ -61,7 +67,7 @@ function Allproduct() {
     }
 
     // Filter by category (skip if "All" is selected)
-    if (selectedCategory && selectedCategory !== 'All') {
+    if (selectedCategory && selectedCategory !== "All") {
       filtered = filtered.filter((el) => el.category === selectedCategory);
     }
 
@@ -93,8 +99,8 @@ function Allproduct() {
               key={category.id}
               className={`p-3 rounded-lg cursor-pointer transition-all ${
                 selectedCategory === category.name
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-white hover:bg-gray-100 text-gray-700'
+                  ? "bg-blue-500 text-white"
+                  : "bg-white hover:bg-gray-100 text-gray-700"
               }`}
               onClick={() => setSelectedCategory(category.name)}
             >
@@ -141,7 +147,10 @@ function Allproduct() {
                         ${el.price}
                       </Typography>
                       {el.originalPrice && (
-                        <Typography variant="body2" className="text-gray-500 line-through">
+                        <Typography
+                          variant="body2"
+                          className="text-gray-500 line-through"
+                        >
                           ${el.originalPrice}
                         </Typography>
                       )}
@@ -157,7 +166,7 @@ function Allproduct() {
                       className="w-full flex items-center justify-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all"
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent card click event
-                        console.log("Added to cart:", el.name);
+                        dispatch({ type: "ADD_TO_CART", payload: el }); // Add item to cart
                       }}
                     >
                       <svg

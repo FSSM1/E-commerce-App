@@ -1,4 +1,5 @@
 const express = require("express");
+const { purchaseCart } = require("../controllers/carts.controllers");
 const Router = express.Router();
 
 // Router.get("/getAll", getAllCarts);
@@ -6,5 +7,6 @@ const Router = express.Router();
 // Router.post("/add", addOneCart);
 // Router.delete("/delete/:cartId", deleteOneCart);
 // Router.put("/update/:cartId", updateOneCart);
+Router.post("/purchase", purchaseCart);
 
 module.exports = Router;

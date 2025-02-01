@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, Box, Button } from "@mui/material";
 import Allproduct from "../../components/productsClient/Allproduct";
 import { fetchAllProducts } from "../../features/productSlice";
+
+import { useCart } from "../../context/CartContext"; // Import useCart
+
 const Products = () => {
   const data = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
