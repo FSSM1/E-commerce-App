@@ -66,8 +66,9 @@ const Products = () => {
       }
       fetchproduct(); // Refresh the list
       setShowAddProduct(false); // Hide the form
-      setSelectedProduct(null); // Clear selected product after saving
-    } catch (error) {
+      setSelectedProduct(null); // Clear selected product after saving 
+    
+  } catch (error) {
       console.error("Error saving product:", error);
     }
   };

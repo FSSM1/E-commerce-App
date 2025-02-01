@@ -4,8 +4,9 @@ import ProfileDropdown from "../ProfileDropdown";
 import { useContext, useState } from "react";
 import { SearchContext } from "../../components/productsClient/SearchContext";
 import { useCart } from "../../context/CartContext";
-
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const navigate = useNavigate();
   const { setSearchTerm } = useContext(SearchContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage mobile menu visibility
 
