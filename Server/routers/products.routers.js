@@ -5,7 +5,8 @@ const {
   addOneProduct,
   deleteOneProduct,
   updateOneProduct,
-  getAllProductSeller
+  getAllProductSeller,
+  paywithflouci,
 } = require("../controllers/products.controllers");
 const Router = express.Router();
 
@@ -15,4 +16,6 @@ Router.post("/add", addOneProduct);
 Router.delete("/delete/:productId", deleteOneProduct);
 Router.put("/update/:productId", updateOneProduct);
 Router.get("/productseller/:id", getAllProductSeller);
+Router.post("/create-payment", paywithflouci);
+
 module.exports = Router;

@@ -33,13 +33,13 @@ export default function Carousel() {
   }, []); // Empty dependency array to run only once when the component mounts
 
   return (
-    <div className="relative max-w-full mx-auto overflow-hidden">
+    <div className="relative max-w-full mx-auto overflow-hidden ml-20 mr-20 mt-10">
       {/* Carousel Images */}
       <div className="w-full transition-transform duration-500 ease-in-out">
         <img
           src={images[currentIndex]}
           alt={`Carousel image ${currentIndex + 1}`}
-          className="w-full h-96 object-cover rounded-lg shadow-lg"
+          className="w-full h-96 object-cover shadow-lg"
         />
       </div>
 

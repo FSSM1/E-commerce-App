@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, Typography } from '@mui/material';
+import { TextField, Button, Box, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
-const AddProduct = ({ handleSave,setShowAddProduct, }) => {
+const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     price: '',
     quantity: '',
     image: '',
-    nbSold: '',
     categoryId: ''
   });
-  useEffect(() =>{
+
+  useEffect(() => {
     setFormData({
       name: '',
       description: '',
       price: '',
       quantity: '',
       image: '',
-      nbSold: '',
       categoryId: ''
-    })
-  },[])
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,8 +32,8 @@ const AddProduct = ({ handleSave,setShowAddProduct, }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSave(formData);
-  setShowAddProduct(false);
+    handleSave(formData); 
+    setShowAddProduct(false);
   };
 
   return (
@@ -90,26 +89,27 @@ const AddProduct = ({ handleSave,setShowAddProduct, }) => {
           margin="normal"
           required
         />
-        <TextField
-          fullWidth
-          label="Number Sold"
-          name="nbSold"
-          type="number"
-          value={formData.nbSold}
-          onChange={handleChange}
-          margin="normal"
-          required
-        />
-        <TextField
-          fullWidth
-          label="Category ID"
-          name="categoryId"
-          type="number"
-          value={formData.categoryId}
-          onChange={handleChange}
-          margin="normal"
-          required
-        />
+        
+
+        {/* Dropdown for Category */}
+        <FormControl fullWidth margin="normal" required>
+          <InputLabel id="category-label">Category</InputLabel>
+          <Select
+            labelId="category-label"
+            id="categoryId"
+            name="categoryId"
+            value={formData.categoryId}
+            onChange={handleChange}
+            label="Category"
+          >
+            {categories.map((category) => (
+              <MenuItem key={category.id} value={category.id}>
+                {category.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <Button
           type="submit"
           variant="contained"

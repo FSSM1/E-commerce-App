@@ -7,18 +7,23 @@ import ContactSeller from "../src/pages/seller/Contact";
 import HomeLayoutClient from "../src/pages/client/HomeLayout";
 import HomeLayoutSeller from "../src/pages/seller/HomeLayout";
 
+import { CartProvider } from "./context/CartContext";
+import Cart from "./components/productsClient/Cart";
+
 import Profile from "./pages/Profile";
-import Settings from "./pages/Settings"
+import Settings from "./pages/Settings";
+
+import Paiement from "../src/components/productsClient/Paiement";
+
 
 import LandingClient from "../src/pages/client/Landing";
-import LandingSeller from "../src/pages/seller/Landing";
+import LandingSeller from "../src/pages/client/Products";
 
 import ProductClient from "./pages/client/Products";
 import ProductsSeller from "./pages/seller/Products";
 
-import Login from './pages/Login';
+import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-
 
 import ErrorElement from "./components/ErrorElement";
 import Oneproduct from "./components/productsClient/Oneproduct";
@@ -69,6 +74,16 @@ const router = createBrowserRouter([
         element: <Settings />,
         errorElement: <ErrorElement />,
       },
+      {
+        path: "cart",
+        element: <Cart />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "Paiement",
+        element: <Paiement />,
+        errorElement: <ErrorElement />,
+      },
     ],
   },
 
@@ -117,7 +132,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <CartProvider>
+      <RouterProvider router={router} />;
+    </CartProvider>
+  );
 };
 
 export default App;

@@ -23,6 +23,8 @@ sequelize
 
 const db = {};
 
+db.reviews= require("./models/reviews")(sequelize, Sequelize);
+
 db.User = require("./models/users")(sequelize, Sequelize);
 db.Product = require("./models/products")(sequelize, Sequelize);
 db.Category = require("./models/categories")(sequelize, Sequelize);

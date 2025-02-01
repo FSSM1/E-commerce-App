@@ -42,13 +42,13 @@ const router = createBrowserRouter([
         errorElement: < ErrorElement />,
       },
 
-     
-      
+
+
       // {
       //   path: 'products/:id', 
       //   element: <SingleProduct />,
       //   errorElement: < ErrorElement />,
-    
+
       // },
       // {
       //   path: 'cart', 
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
     errorElement: < ErrorElement />,
   },
 
-  
+
 ])
 
 const App = () => {

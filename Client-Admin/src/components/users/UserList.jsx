@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
-const UserList = ({ users, onDelete, onEdit }) => {
+const UserList = ({ users, onDelete, onEdit, onGetProducts }) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -47,6 +47,15 @@ const UserList = ({ users, onDelete, onEdit }) => {
                 >
                   Delete
                 </Button>
+                {(user.role === "admin" || user.role === "seller") && (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                   onClick={() => onGetProducts && onGetProducts(user.id)}
+                  >
+                    Get Products
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}
