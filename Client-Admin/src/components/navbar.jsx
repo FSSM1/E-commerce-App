@@ -1,17 +1,9 @@
-import React, { useState } from "react";
+import React  from "react";
 import { NavLink } from "react-router-dom";
 import NavLinks from "./NavLinks";
 
 const Navbar = () => {
-  const [searchType, setSearchType] = useState("products"); // Default search type
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log(`Searching for ${searchType}: ${searchQuery}`);
-    // Implement navigation or API call for search results here
-    
-  };
+ 
 
   return (
     <nav className="bg-base-200">
@@ -31,25 +23,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Search Bar */}
-        {/* <form className="flex items-center space-x-2" onSubmit={handleSearch}>
-          <select
-            className="select select-bordered"
-            value={searchType}
-            onChange={(e) => setSearchType(e.target.value)}
-          >
-            <option value="products">Products</option>
-            <option value="users">Users</option>
-          </select>
-          <input
-            type="text"
-            placeholder={`Search ${searchType}...`}
-            className="input input-bordered w-64"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button type="submit" className="btn btn-primary">Search</button>
-        </form> */}
+      
 
         {/* Navbar End (Buttons) */}
         <div className="navbar-end flex items-center space-x-4">

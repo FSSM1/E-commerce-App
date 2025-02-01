@@ -51,7 +51,7 @@ const Products = () => {
   // Handle product edit
   const handleEdit = (product) => {
     setSelectedProduct(product); // Set the product to edit
-    setShowAddProduct(false); // Ensure we hide the "Add Product" form
+    setShowAddProduct(false); 
   };
 
   // Save the product (for Add or Edit)

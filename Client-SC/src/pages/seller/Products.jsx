@@ -6,12 +6,12 @@ import EditProduct from "../../components/productsSeller/EditProduct"
 import Allproduct from "../../components/productsSeller/Allproduct"
 import axios from 'axios';
 function Products() {
-console.log("helooooooooooooo saif");
+
 const [showAddProduct, setShowAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null)
 const [product, setProducts] = useState([]);
 const [categories, setCategories] = useState([]);
-// console.log(product, "data saif eddine hlimi");
+
 
 const getAllCategories = async () => {
   try {
@@ -23,7 +23,7 @@ const getAllCategories = async () => {
   }
 };
 const user = JSON.parse(localStorage.getItem("user"));
-// console.log(user,"hamadiiiiiiii");
+
 
   const fetchproduct = async (id) => {
     if(user.role == "seller"||user.role == "admin"){

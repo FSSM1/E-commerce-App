@@ -8,7 +8,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
     price: '',
     quantity: '',
     image: '',
-    categoryId: '' // Ensure this is included
+    categoryId: ''
   });
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
       price: '',
       quantity: '',
       image: '',
-      categoryId: '' // Reset this field
+      categoryId: ''
     });
   }, []);
 
@@ -32,7 +32,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSave(formData); // Ensure `categoryId` is included here
+    handleSave(formData); 
     setShowAddProduct(false);
   };
 
