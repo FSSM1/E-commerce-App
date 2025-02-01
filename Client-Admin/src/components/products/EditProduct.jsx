@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { TextField, Button, Box, Typography } from '@mui/material';
-const EditProduct = ({product,handleSave,setSelectedProduct}) => {
+import { TextField, Button, Box, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+const EditProduct = ({categories,product,handleSave,setSelectedProduct}) => {
   const [formData, setFormData] = useState(product)
   const handleChange = (e) => {
     const{name,value}=e.target
@@ -74,16 +74,23 @@ const EditProduct = ({product,handleSave,setSelectedProduct}) => {
           margin="normal"
           required
         />
-        <TextField
-          fullWidth
-          label="Category ID"
-          name="categoryId"
-          type="number"
-          value={formData.categoryId}
-          onChange={handleChange}
-          margin="normal"
-          required
-        />
+       <FormControl fullWidth margin="normal" required>
+          <InputLabel id="category-label">Category</InputLabel>
+          <Select
+            labelId="category-label"
+            id="categoryId"
+            name="categoryId"
+            value={formData.categoryId}
+            onChange={handleChange}
+            label="Category"
+          >
+            {categories.map((category) => (
+              <MenuItem key={category.id} value={category.id}>
+                {category.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
          <Button type="submit" variant="contained" color="primary" fullWidth>
         Save Changes
       </Button>
