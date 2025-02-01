@@ -1,5 +1,10 @@
 const db = require("../database/index");
 const Product = db.Product;
+const FLOUCI_API_KEY = process.env.FLOUCI_API_KEY;
+const FLOUCI_API_SECRET = process.env.FLOUCI_API_SECRET;
+const axios = require('axios');
+
+
 
 module.exports = {
   getAllProduct: async (req, res) => {
@@ -61,5 +66,46 @@ module.exports = {
         error: err,
       });
     }
+  },
+  paywithflouci: async (req, res) => {
+     
+
+
+    console.log("api secreet", FLOUCI_API_KEY)
+      try {
+        console.log("api secreet", FLOUCI_API_KEY)
+        console.log("api secreet", FLOUCI_API_SECRET)
+
+
+          const { amount, currency, customer_email } = req.body;
+          const payload = {
+            app_token: FLOUCI_API_KEY, // Replace with your app token
+            app_secret: FLOUCI_API_SECRET, // Replace with your app secret
+            accept_card:true,
+            amount:5000,
+            success_link: "https://example.website.com/success",
+            fail_link: "https://example.website.com/fail",
+            session_timeout_secs: 1200,
+            developer_tracking_id: "iojsdfoidsfjo"
+          };
+          
+         
+  
+          const response = await axios.post(
+              'https://developers.flouci.com/api/generate_payment',
+              payload,
+              {
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer "${FLOUCI_API_KEY}":${FLOUCI_API_SECRET}`,
+                  },
+              }
+          );
+  
+          res.json(response.data);
+      } catch (error) {
+          console.error('Error creating payment session:', error);
+          res.status(500).json({ error: 'Failed to create payment session' });
+      }
   },
 };

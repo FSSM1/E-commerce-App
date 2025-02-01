@@ -38,13 +38,8 @@ const Products = () => {
   // Save the user (for Add or Edit)
   const handleSave = async (productData) => {
     try {
-      if (productData.id) {
-        // If there's an ID, we're updating an existing user
-        await axios.put(`http://127.0.0.1:3000/api/products/update/${productData.id}`, productData);
-      } else {
-        // Otherwise, we're creating a new user
         await axios.post(`http://127.0.0.1:3000/api/products/add`, productData);
-      }
+      
       fetchproduct(); // Refresh the list
       setShowAddProduct(false); // Hide the form
       setSelectedProduct(null); // Clear selected user after saving
