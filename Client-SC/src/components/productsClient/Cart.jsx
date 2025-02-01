@@ -14,7 +14,7 @@ import axios from "axios";
 const Cart = () => {
   const { cartItems, totalItems, totalPrice, dispatch } = useCart();
   const user = JSON.parse(localStorage.getItem("user"));
-
+  
   // Handle purchase
   const handlePurchase = async () => {
     try {
@@ -34,8 +34,14 @@ const Cart = () => {
       );
 
       if (response.status === 201) {
-        alert("Purchase successful!");
-        dispatch({ type: "CLEAR_CART" }); // Clear the cart after purchase
+        try {
+          const response = await axios.post('http://localhost:3000/api/products/create-payment', {
+              amount: totalPrice,
+          });
+          window.location.href = response.data.result.link;
+      } catch (error) {
+          console.error('Error creating payment:', error);
+      }        dispatch({ type: "CLEAR_CART" }); // Clear the cart after purchase
       }
     } catch (error) {
       console.error("Error during purchase:", error);

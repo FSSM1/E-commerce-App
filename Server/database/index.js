@@ -41,7 +41,7 @@ db.Carts.belongsToMany(db.Product, { through: "carts_products" });
 db.Product.belongsToMany(db.Carts, { through: "carts_products" });
 
 // sequelize
-//   .sync({ alter: true })
+//   .sync({ force: false })
 //   .then(() => {
 //     console.log("phrase table created successfully!");
 //   })

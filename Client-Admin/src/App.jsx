@@ -41,7 +41,11 @@ const router = createBrowserRouter([
         element: <Profile />,
         errorElement: < ErrorElement />,
       },
-
+      {
+        path:'showproductsofuser', 
+        element: <Profile />,
+        errorElement: < ErrorElement />,
+      },
 
 
       // {
