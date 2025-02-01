@@ -53,6 +53,7 @@ export default function CategoryCarousel({ categoryId }) {
           className="w-full h-96 object-cover rounded-lg shadow-lg"
         />
       </div>
+      <h1></h1>
 
       {/* Navigation Arrows */}
       <button

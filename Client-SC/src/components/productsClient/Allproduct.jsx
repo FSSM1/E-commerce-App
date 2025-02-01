@@ -91,7 +91,8 @@ function Allproduct() {
           {categories.map((category) => (
             <li
               key={category.id}
-              className={`p-3 rounded-lg cursor-pointer transition-all ${
+              className={`p-3 rounded-lg 00.0
+                0...02100- pointer transition-all ${
                 selectedCategory === category.name
                   ? 'bg-blue-500 text-white'
                   : 'bg-white hover:bg-gray-100 text-gray-700'
@@ -103,7 +104,7 @@ function Allproduct() {
           ))}
         </ul>
       </div>
-
+      
       {/* Product Grid */}
       <div className="flex-1 ml-64 p-8 overflow-y-auto">
         {currentData.length > 0 ? (
