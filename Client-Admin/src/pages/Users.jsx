@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserList from "../components/users/UserList";
 import AddUser from "../components/users/AddUser";
-import { Grid, Box, Button } from "@mui/material";
 import EditUser from "../components/users/EditUser";
+import { Grid, Box, Button, TextField } from "@mui/material";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-  const [showAddUser, setShowAddUser] = useState(false); // State to toggle between components
-  const [selectedUser, setSelectedUser] = useState(null); // State for selected user to edit
+  const [filteredData, setFilteredData] = useState([]);
+  const [showAddUser, setShowAddUser] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const API_URL = "http://localhost:3000/api/users";
 
@@ -17,42 +19,9 @@ const Users = () => {
     try {
       const response = await axios.get(`${API_URL}/getAll`);
       setUsers(response.data.data);
+      setFilteredData(response.data.data);
     } catch (error) {
       console.error("Error fetching users:", error);
-    }
-  };
-
-  // Delete a user
-  const handleDelete = async (userId) => {
-    try {
-      await axios.delete(`${API_URL}/delete/${userId}`);
-      fetchUsers(); // Refresh the list
-    } catch (error) {
-      console.error("Error deleting user:", error);
-    }
-  };
-
-  // Edit a user
-  const handleEdit = (user) => {
-    setSelectedUser(user); // Set the user to edit
-    setShowAddUser(false); // Ensure we hide the "Add User" form
-  };
-
-  // Save the user (for Add or Edit)
-  const handleSave = async (userData) => {
-    try {
-      if (userData.id) {
-        // If there's an ID, we're updating an existing user
-        await axios.put(`${API_URL}/update/${userData.id}`, userData);
-      } else {
-        // Otherwise, we're creating a new user
-        await axios.post(`${API_URL}/add`, userData);
-      }
-      fetchUsers(); // Refresh the list
-      setShowAddUser(false); // Hide the form
-      setSelectedUser(null); // Clear selected user after saving
-    } catch (error) {
-      console.error("Error saving user:", error);
     }
   };
 
@@ -60,44 +29,87 @@ const Users = () => {
     fetchUsers();
   }, []);
 
+  // Delete a user
+  const handleDelete = async (userId) => {
+    try {
+      await axios.delete(`${API_URL}/delete/${userId}`);
+      fetchUsers();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
+  // Edit a user
+  const handleEdit = (user) => {
+    setSelectedUser(user);
+    setShowAddUser(false);
+  };
+
+  // Save the user (for Add or Edit)
+  const handleSave = async (userData) => {
+    try {
+      if (userData.id) {
+        await axios.put(`${API_URL}/update/${userData.id}`, userData);
+      } else {
+        await axios.post(`${API_URL}/add`, userData);
+      }
+      fetchUsers();
+      setShowAddUser(false);
+      setSelectedUser(null);
+    } catch (error) {
+      console.error("Error saving user:", error);
+    }
+  };
+
+  // Handle search input
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    const filtered = users.filter((user) =>
+      
+      user.firstname.toLowerCase().includes(query.toLowerCase()) ||
+      user.lastname.toLowerCase().includes(query.toLowerCase()) ||
+      user.email.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
+
   return (
     <div>
+      {/* Search Bar */}
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mr: 5 }}>
+        <TextField
+          label="Search users"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          sx={{ mb: 3, width: "25%" }}
+        />
+      </Box>
+
       <Grid container sx={{ height: "100vh" }}>
-        {/* Left Vertical Section */}
+        {/* Sidebar Navigation */}
         <Grid
           item
           xs={2}
           sx={{
             bgcolor: "#f5f5f5",
             display: "flex",
+            flexDirection: "column",
             alignItems: "flex-start",
-            justifyContent: "left",
+            p: 2,
           }}
         >
-          {/* Navigation Buttons */}
-          <Box sx={{ marginBottom: "20px" }}>
-            <Button
-              variant="text"
-              color="primary"
-              size="large"
-              onClick={() => setShowAddUser(false)}
-              sx={{ marginRight: "10px" }}
-            >
-              User List
-            </Button>
-            <br />
-            <Button
-              variant="text"
-              color="secondary"
-              size="large"
-              onClick={() => setShowAddUser(true)}
-            >
-              Add User
-            </Button>
-          </Box>
+          <Button variant="text" color="primary" onClick={() => setShowAddUser(false)}>
+            User List
+          </Button>
+          <Button variant="text" color="secondary" onClick={() => setShowAddUser(true)}>
+            Add User
+          </Button>
         </Grid>
 
-        {/* Right Horizontal Section */}
+        {/* Main Content */}
         <Grid item xs={10} sx={{ display: "flex", flexDirection: "column" }}>
           <Box
             sx={{
@@ -108,21 +120,12 @@ const Users = () => {
               justifyContent: "center",
             }}
           >
-            {/* Conditional Rendering */}
             {showAddUser ? (
               <AddUser onSave={handleSave} setShowAddUser={setShowAddUser} />
             ) : selectedUser ? (
-              <EditUser
-                user={selectedUser}
-                onSave={handleSave}
-                setSelectedUser={setSelectedUser}
-              />
+              <EditUser user={selectedUser} onSave={handleSave} setSelectedUser={setSelectedUser} />
             ) : (
-              <UserList
-                users={users}
-                onDelete={handleDelete}
-                onEdit={handleEdit}
-              />
+              <UserList users={filteredData} onDelete={handleDelete} onEdit={handleEdit} />
             )}
           </Box>
         </Grid>
