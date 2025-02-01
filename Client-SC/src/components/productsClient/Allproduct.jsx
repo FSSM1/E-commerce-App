@@ -91,7 +91,7 @@ const Allproduct = () => {
 
   const addToCart = async (productId) => {
     try {
-      const userId = 1; // Replace with actual user ID from auth
+      const userId = 1;
       await axios.post("http://localhost:3000/api/carts/add", {
         userId,
         productId,
