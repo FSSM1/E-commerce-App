@@ -177,52 +177,44 @@ const Landing = () => {
       </section>
 
       {/* Browse By Category Section */}
-      <div className="container mx-auto p-3 pt-30 pb-30">
-        <div className="flex flex-col mb-4">
-          <div className="flex gap-2">
-            <div className="w-3 h-6 bg-red-600 rounded-md"></div>
-            <span className="text-red-600 font-semibold text-lg">
-              This Month
-            </span>
-          </div>
-          <h2 className="text-3xl font-bold mt-1">Browse By Category</h2>
-        </div>
+      {/* Browse By Category Section */}
+<div className="container mx-auto p-3 pt-30 pb-30">
+  <div className="flex flex-col mb-4">
+    <div className="flex gap-2">
+      <div className="w-3 h-6 bg-red-600 rounded-md"></div>
+      <span className="text-red-600 font-semibold text-lg">This Month</span>
+    </div>
+    <h2 className="text-3xl font-bold mt-1">Browse By Category</h2>
+  </div>
 
-        {/* Swiper Carousel */}
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={10}
-          slidesPerView={6}
-          navigation
-          pagination={{ clickable: true }}
-          breakpoints={{
-            1024: { slidesPerView: 6 },
-            768: { slidesPerView: 3 },
-            480: { slidesPerView: 2 },
-          }}
-        >
-          {[
-            laptops,
-            Smartwatchs,
-            Cameras,
-            Headphones,
-            Gamings,
-            laptops,
-            Smartwatchs,
-            Cameras,
-            Headphones,
-            Gamings,
-          ].map((image, index) => (
-            <SwiperSlide key={index}>
-              <img
-                src={image}
-                alt={`Category ${index}`}
-                className="w-24 h-24 object-contain rounded"
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+  {/* Swiper Carousel */}
+  <Swiper
+    modules={[Navigation, Pagination, Autoplay]}
+    spaceBetween={10}
+    slidesPerView={6}
+    navigation
+    pagination={{ clickable: true }}
+    breakpoints={{
+      1024: { slidesPerView: 6 },
+      768: { slidesPerView: 3 },
+      480: { slidesPerView: 2 },
+    }}
+  >
+    {categories.map((category) => (
+      <SwiperSlide key={category.id}>
+        <div className="flex flex-col items-center">
+          {/* You can replace the image with a placeholder or category-specific image */}
+          <img
+            src={category.image || "https://via.placeholder.com/100"} // Use a placeholder if no image is available
+            alt={category.name}
+            className="w-24 h-24 object-contain rounded"
+          />
+          <p className="mt-2 text-center">{category.name}</p>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
       {/* Best Selling Products */}
       <section className="container mx-auto p-4 pt-30 pb-30">
