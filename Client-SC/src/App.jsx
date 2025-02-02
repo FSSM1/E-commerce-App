@@ -8,12 +8,10 @@ import HomeLayoutClient from "../src/pages/client/HomeLayout";
 import HomeLayoutSeller from "../src/pages/seller/HomeLayout";
 
 import { CartProvider } from "./context/CartContext";
-import Cart from "./components/productsClient/Cart";
+import Cart from "./components/Cart";
 
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-
-
 
 import LandingClient from "../src/pages/client/Landing";
 import LandingSeller from "../src/pages/client/Products";
@@ -119,6 +117,11 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: <Settings />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
         errorElement: <ErrorElement />,
       },
     ],

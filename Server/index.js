@@ -17,6 +17,8 @@ const adminrouter = require("./routers/admin.routers");
 const multerRouter = require("./routers/multer");
 
 app.use("/uploads", express.static("uploads"));
+const likesRoutes = require("./routers/LikedRouters");
+
 
 
 app.use(cookieParser());
@@ -30,6 +32,11 @@ app.use("/api/products", productsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/admin", adminrouter);
+
+
+
+app.use("/api/likes", likesRoutes); // Add Likes API
+
 
 // Multer image upload route
 app.use("/api/upload", multerRouter);
