@@ -14,7 +14,23 @@ export default function Login() {
   const [resetPasswordMessage, setResetPasswordMessage] = useState("");
 
   const navigate = useNavigate();
-
+  const handleResetPassword = async () => {
+    try {
+      const email = resetEmailRef.current.value;
+  
+      const response = await axios.post(
+        "http://localhost:3000/api/users/forgot-password",
+        { email }
+      );
+  
+      if (response.status === 200) {
+        setResetPasswordMessage("Password reset link sent to your email.");
+      }
+    } catch (err) {
+      console.error(err);
+      setResetPasswordMessage("Failed to send reset link. Please try again.");
+    }
+  };
   const handleLogin = async () => {
     try {
       const email = emailRef.current.value;
@@ -32,7 +48,9 @@ export default function Login() {
         const { token, user } = response.data;
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", JSON.stringify(token));
-        if (user.role === "Client") {
+        const userL = JSON.parse(localStorage.getItem("user"));
+       console.log(userL,'useer rooole')
+        if (userL.role === "client") {
           navigate("/client/home");
         } else {
           navigate("/seller/home");
@@ -48,23 +66,7 @@ export default function Login() {
     }
   };
 
-  const handleResetPassword = async () => {
-    try {
-      const email = resetEmailRef.current.value;
-
-      const response = await axios.post(
-        "http://localhost:3000/api/users/forgot-password",
-        { email }
-      );
-
-      if (response.status === 200) {
-        setResetPasswordMessage("Password reset link sent to your email.");
-      }
-    } catch (err) {
-      console.error(err);
-      setResetPasswordMessage("Failed to send reset link. Please try again.");
-    }
-  };
+  
 
   return (
     <div className="min-h-screen flex">

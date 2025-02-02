@@ -9,7 +9,11 @@ const {
   signup,
   refreshToken,
   verifyToken,
-  authenticateToken
+  authenticateToken,
+  sendResetPasswordEmail,
+  forgotPassword,
+  verifyResetToken,
+  resetPassword
 } = require("../controllers/users.controllers");
 
 const Router = express.Router();
@@ -23,5 +27,9 @@ Router.post("/login", login);
 Router.post("/signup", signup);
 Router.post("/refresh", refreshToken); // New route for refresh token
 Router.get("/verify",authenticateToken,verifyToken )
+Router.post("/reset-password", resetPassword);
+Router.post("/forgot-password", forgotPassword);
+Router.get("/verify-reset-token", verifyResetToken);
+
 
 module.exports = Router;

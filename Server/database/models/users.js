@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "client",
       allowNull: false,
     },
+    resetPasswordToken:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },   resetPasswordExpires:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
   },{timestamps : false});
   return User;
 };

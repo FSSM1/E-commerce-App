@@ -1,13 +1,12 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-
-import HomeLayout from "./pages/HomeLayout"
+import HomeLayout from "./pages/HomeLayout";
 
 import ErrorElement from "./components/ErrorElement";
 import Landing from "./pages/Landing";
 import Products from "./pages/Products";
-import UserProducts from "./components/users/UserProducts.jsx"
+import UserProducts from "./components/users/UserProducts.jsx";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 
@@ -15,86 +14,92 @@ import Signup from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
 
 import Categories from "./pages/Categories";
-
+import Settings from "./pages/Settings.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/', 
+    path: "/",
     element: <HomeLayout />,
-    errorElement: <ErrorElement/>, 
+    errorElement: <ErrorElement />,
     children: [
       {
-        path: 'home', 
+        path: "home",
         element: <Landing />,
         errorElement: <ErrorElement />,
       },
       {
-        path:'users', 
+        path: "users",
         element: <Users />,
-        errorElement: < ErrorElement />,
+        errorElement: <ErrorElement />,
       },
       {
-        path:'products', 
+        path: "products",
         element: <Products />,
-        errorElement: < ErrorElement />,
+        errorElement: <ErrorElement />,
       },
       {
-        path:'categories', 
+        path: "categories",
         element: <Categories />,
-        errorElement: < ErrorElement />,
+        errorElement: <ErrorElement />,
       },
       {
-        path:'profile', 
+        path: "profile",
         element: <Profile />,
-        errorElement: < ErrorElement />,
+        errorElement: <ErrorElement />,
       },
       {
-        path:'user-products/:id', 
+        path: "user-products/:id",
         element: <UserProducts />,
-        errorElement: < ErrorElement />,
+        errorElement: <ErrorElement />,
       },
-
-
-      // {
-      //   path: 'products/:id', 
+      {
+        path: "profile",
+        element: <Profile />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+        errorElement: <ErrorElement />,
+      },
+// {
+      //   path: 'products/:id',
       //   element: <SingleProduct />,
       //   errorElement: < ErrorElement />,
 
       // },
       // {
-      //   path: 'cart', 
+      //   path: 'cart',
       //   element: <Cart />
       // },
       // {
-      //   path: 'about', 
+      //   path: 'about',
       //   element: <About />
       // },
       // {
-      //   path: 'checkout', 
+      //   path: 'checkout',
       //   element: <Checkout />
       // },
       // {
-      //   path: 'orders', 
+      //   path: 'orders',
       //   element: <Orders />
       // },
-    ]
+    ],
   },
   {
-    path:'signup', 
+    path: "signup",
     element: <Signup />,
-    errorElement: < ErrorElement />,
+    errorElement: <ErrorElement />,
   },
   {
-    path:'login', 
+    path: "login",
     element: <Login />,
-    errorElement: < ErrorElement />,
+    errorElement: <ErrorElement />,
   },
-
-
-])
+]);
 
 const App = () => {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 };
 
 export default App;

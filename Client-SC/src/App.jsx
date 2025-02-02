@@ -8,12 +8,10 @@ import HomeLayoutClient from "../src/pages/client/HomeLayout";
 import HomeLayoutSeller from "../src/pages/seller/HomeLayout";
 
 import { CartProvider } from "./context/CartContext";
-import Cart from "./components/productsClient/Cart";
+import Cart from "./components/Cart";
 
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-
-
 
 import LandingClient from "../src/pages/client/Landing";
 import LandingSeller from "../src/pages/client/Products";
@@ -26,6 +24,8 @@ import Signup from "./pages/Signup";
 
 import ErrorElement from "./components/ErrorElement";
 import Oneproduct from "./components/productsClient/Oneproduct";
+
+import ResetPassword from "./pages/seller/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -119,6 +119,16 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: <Settings />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
         errorElement: <ErrorElement />,
       },
     ],

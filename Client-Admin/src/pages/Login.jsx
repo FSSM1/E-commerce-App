@@ -24,6 +24,7 @@ export default function Login() {
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", JSON.stringify(token));
       }
+      
       navigate('/');
     } catch (err) {
       console.error(err);

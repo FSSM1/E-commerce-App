@@ -1,8 +1,11 @@
 const db = require("../database/index");
 const Users = db.User;
+const nodemailer = require("nodemailer");
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+
 
 // Helper function to generate access token
 const generateAccessToken = (user) => {
@@ -26,6 +29,35 @@ const generateRefreshToken = (user) => {
     { expiresIn: "7d" } // 7 days expiration time for refresh token
   );
 };
+
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.mail.yahoo.com",
+  port: 465, // Secure SSL connection
+  secure: true, // Set to true for port 465
+  auth: {
+    user: "drongasadok@yahoo.fr", // Your Yahoo email
+    pass: "qqogqaxlnekqghku", // Use the generated App Password
+  },
+});
+
+// Function to send an email
+const sendMail = async (subject,title) => {
+  try {
+    const info = await transporter.sendMail({
+      from: 'drongasadok@yahoo.fr',
+      to: "drongasadok@yahoo.fr",
+      subject: subject,
+      html:title,
+    });
+
+    console.log("Email sent:", info.messageId);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};
+
+
 
 module.exports = {
   getAllUsers: async (req, res) => {
@@ -206,9 +238,92 @@ module.exports = {
    verifyToken: (req, res) => {
     // If the request reached this point, the token is valid
     return res.json({ message: 'Token is valid' });
-  }
+  },
 
 
+  
+   forgotPassword : async (req, res) => {
+    try {
+      const { email } = req.body;
+  
+      // Find the user by email
+      const user = await Users.findOne({ where: { email } });
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+  
+      // Generate a reset token
+      const resetToken = crypto.randomBytes(20).toString("hex");
+      const resetTokenExpires = Date.now() + 3600000; // 1 hour
+  
+      // Save the token and expiration time in the database
+      user.resetPasswordToken = resetToken;
+      user.resetPasswordExpires = resetTokenExpires;
+      await user.save();
+  
+      const resetUrl = `<a href="http://localhost:5173/seller/reset-password?token=${resetToken}"> here </a>`;
+      sendMail('Forget Password',"Click this link to reset your password :" + resetUrl)
+  
+      res.status(200).json({ message: "Password reset link sent to your email." });
+    } catch (error) {
+      console.error("Error in forgotPassword:", error);
+      res.status(500).json({ error: "Internal server error forgot password" });
+    }
+  },
+   verifyResetToken :async (req, res) => {
+    try {
+      const { token } = req.query;
+  
+      // Find the user by the reset token
+      const user = await User.findOne({
+        where: {
+          resetPasswordToken: token,
+          resetPasswordExpires: { [db.Sequelize.Op.gt]: Date.now() }, // Check if the token is not expired
+        },
+      });
+  
+      if (!user) {
+        return res.status(400).json({ message: "Invalid or expired token." });
+      }
+  
+      // Redirect to the frontend reset password page with the token
+      res.redirect(`http://yourfrontend.com/reset-password?token=${token}`);
+    } catch (error) {
+      console.error("Error in verifyResetToken:", error);
+      res.status(500).json({ error: "Internal server error verify token" });
+    }
+  },
 
+   resetPassword : async (req, res) => {
+    try {
+      const { token, newPassword } = req.body;
+      
+      // Find the user by the reset token
+      const user = await Users.findOne({
+        where: {
+          resetPasswordToken: token,
+        
+        },
+      });
+  
+      if (!user) {
+        return res.status(400).json({ message: "Invalid or expired token." });
+      }
+  
+      const newPasswordHash = await bcrypt.hash(newPassword, 10);
+      // Update the password and clear the reset token
+      user.password = newPasswordHash; // Ensure the password is hashed before saving
+      user.resetPasswordToken = null;
+      user.resetPasswordExpires = null;
+      await user.save();
+  
+      res.status(200).json({ message: "Password reset successfully." });
+    } catch (error) {
+      console.error("Error in resetPassword:", error);
+      res.status(500).json({ error: "Internal server error reset" });
+    }
+  },
+
+  
 
 };
