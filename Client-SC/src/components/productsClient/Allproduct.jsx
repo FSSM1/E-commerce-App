@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../productsClient/SearchContext";
 import Typography from "@mui/material/Typography";
 import { useCart } from "../../context/CartContext";
+import { toast, ToastContainer } from "react-toastify";
 
 function Allproduct() {
   const navigate = useNavigate();
@@ -184,6 +185,7 @@ function Allproduct() {
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent card click event
                         dispatch({ type: "ADD_TO_CART", payload: el }); // Add item to cart
+                        toast.success("product added to cart sucessfully")
                       }}
                     >
                       <svg
@@ -221,6 +223,7 @@ function Allproduct() {
           </Box>
         )}
       </div>
+      <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
     </div>
   );
 }

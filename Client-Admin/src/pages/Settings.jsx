@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField, Button, Paper } from "@mui/material";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Settings = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -10,33 +11,14 @@ const Settings = () => {
   // Fetch user data from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
 
-  // Function to handle password update
+  // Placeholder functions for form submission
   const handleUpdatePassword = (e) => {
     e.preventDefault();
-
-    // Check if passwords match
-    if (newPassword !== confirmPassword) {
-      setPasswordError("Passwords do not match");
-      return;
-    }
-
-    // Clear any previous error
-    setPasswordError("");
-
-    // Make the API call to update the password
-    axios
-      .put(`http://127.0.0.1:3000/api/users/update/${user.id}`, {
-        password: newPassword,
-      })
-      .then(() => {
-        alert("Password updated successfully!");
-        setNewPassword(""); // Clear the password fields
-        setConfirmPassword("");
-      })
-      .catch((error) => {
-        console.error("Error updating password:", error);
-        alert("Failed to update password");
-      });
+    axios.put(`http://127.0.0.1:3000/api/users/update/${user.id}`, {
+      password: newPassword,
+    });
+    toast.success("password successfully ")
+    alert("Password updated successfully!");
   };
 
   return (
