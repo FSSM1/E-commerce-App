@@ -1,6 +1,6 @@
 // src/components/productsClient/Cart.jsx
 import React from "react";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../context/CartContext";
 import {
   Box,
   Typography,
