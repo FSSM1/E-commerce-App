@@ -14,6 +14,8 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
 
+import Categories from "./pages/Categories";
+
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,11 @@ const router = createBrowserRouter([
       {
         path:'products', 
         element: <Products />,
+        errorElement: < ErrorElement />,
+      },
+      {
+        path:'categories', 
+        element: <Categories />,
         errorElement: < ErrorElement />,
       },
       {
