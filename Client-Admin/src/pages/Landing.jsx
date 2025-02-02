@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 const Landing = () => {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [users, setUsers] = useState([]);
-  const user1 = JSON.parse(localStorage.getItem("user"));
-  console.log(user1,"alaho akbar ");
-  
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchProducts = async () => {
     try {
@@ -18,16 +14,6 @@ const Landing = () => {
       console.error("Error fetching products:", error);
     }
   };
-
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get("http://127.0.0.1:3000/api/categories/getAll");
-      setCategories(response.data.data);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  };
-
 
   const fetchUsers = async () => {
     try {
@@ -40,69 +26,64 @@ const Landing = () => {
 
   useEffect(() => {
     fetchProducts();
-    fetchCategories();
     fetchUsers();
   }, []);
 
   return (
-    <div className="bg-white-100 p-6">
-      <h1 className="text-3xl font-bold mb-6">{user1.firstname} Dashboard</h1>
+    <div className="bg-gray-100 min-h-screen p-8">
+      {/* Admin Dashboard Header */}
+      <h1 className="text-4xl font-bold text-gray-800 mb-6">
+        {user?.firstname} Dashboard
+      </h1>
 
-      {/* Quick Stats Section */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-semibold">Total Products</h2>
-          <p className="text-2xl font-bold">{products.length}</p>
+      {/* Stats Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+        <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+          <h2 className="text-xl font-semibold text-gray-700">Total Products</h2>
+          <p className="text-3xl font-bold text-blue-600">{products.length}</p>
         </div>
-        <div className="bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-semibold">Total Categories</h2>
-          <p className="text-2xl font-bold">{categories.length}</p>
-        </div>
-       
-        <div className="bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-semibold">Total Users</h2>
-          <p className="text-2xl font-bold">{users.length}</p>
+        <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+          <h2 className="text-xl font-semibold text-gray-700">Total Users</h2>
+          <p className="text-3xl font-bold text-green-600">{users.length}</p>
         </div>
       </div>
 
-      {/* Recent Products Section */}
-      <section className="mb-6">
-        <h2 className="text-2xl font-semibold mb-4">Recent Products</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {products.slice(0, 4).map((product) => (
-            <div key={product.id} className="bg-white p-4 rounded shadow">
+      {/* Latest Products Section (Last 4 Products) */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Latest Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {products.slice(-4).map((product) => (
+            <div key={product.id} className="bg-white rounded-lg shadow-lg p-4">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-40 object-cover rounded"
+                className="w-full h-40 object-cover rounded-lg"
               />
-              <p className="mt-2 font-bold">{product.name}</p>
-              <p className="text-red-500 font-bold">${product.price}</p>
+              <p className="mt-3 font-bold text-gray-800">{product.name}</p>
+              <p className="text-red-500 font-semibold text-lg">${product.price}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Recent Users Section */}
-      <section className="mb-6">
-        <h2 className="text-2xl font-semibold mb-4">Recent Users</h2>
-        <div className="bg-white p-4 rounded shadow">
-          <table className="w-full">
+      {/* Latest Users Section (Last 5 Users) */}
+      <section>
+        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Latest Users</h2>
+        <div className="bg-white rounded-lg shadow-lg p-6 overflow-x-auto">
+          <table className="w-full text-left border-collapse">
             <thead>
-              <tr>
-                <th className="text-left">User ID</th>
-                <th className="text-left">Name</th>
-                <th className="text-left">Email</th>
-                <th className="text-left">Role</th>
+              <tr className="bg-gray-200">
+                <th className="p-3 text-gray-600 font-semibold">Name</th>
+                <th className="p-3 text-gray-600 font-semibold">Email</th>
+                <th className="p-3 text-gray-600 font-semibold">Role</th>
               </tr>
             </thead>
             <tbody>
-              {users.slice(0, 5).map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.firstname}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
+              {users.slice(-5).map((el) => (
+                <tr key={el.id} className="border-b border-gray-300">
+                  <td className="p-3 text-gray-700">{el.firstname}</td>
+                  <td className="p-3 text-gray-700">{el.email}</td>
+                  <td className="p-3 text-gray-700">{el.role}</td>
                 </tr>
               ))}
             </tbody>

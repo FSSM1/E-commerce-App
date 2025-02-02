@@ -1,17 +1,18 @@
-import React  from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import NavLinks from "./NavLinks";
+import ProfileDropdown from "../pages/ProfileDropdown";
 
 const Navbar = () => {
- 
-
   return (
     <nav className="bg-base-200">
       <div className="navbar align-element flex justify-between items-center">
-        
         {/* Navbar Start */}
         <div className="navbar-start">
-          <NavLink to="/" className="hidden lg:flex btn btn-primary text-3xl items-center">
+          <NavLink
+            to="/"
+            className="hidden lg:flex btn btn-primary text-3xl items-center"
+          >
             c
           </NavLink>
         </div>
@@ -23,13 +24,14 @@ const Navbar = () => {
           </ul>
         </div>
 
-      
+        <div className="hidden lg:flex space-x-8">
+          <ProfileDropdown />
+        </div>
 
         {/* Navbar End (Buttons) */}
         <div className="navbar-end flex items-center space-x-4">
           <NavLink to="/products" className="btn btn-ghost btn-circle btn-md" />
           <NavLink to="/users" className="btn btn-ghost btn-circle btn-md" />
-          <NavLink to="/profile" className="btn btn-ghost btn-circle btn-md" />
         </div>
       </div>
     </nav>
@@ -37,4 +39,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-  
