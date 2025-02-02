@@ -78,7 +78,6 @@ const router = createBrowserRouter([
         element: <Cart />,
         errorElement: <ErrorElement />,
       },
-     
     ],
   },
 

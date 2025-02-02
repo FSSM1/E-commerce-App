@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -12,6 +13,8 @@ import Carousel from "../../components/Carousel";
 
 import Footer from "../../assets/Footer.png";
 import Frame702 from "../../assets/Frame702.png";
+import Frame719 from "../../assets/Frame719.png";
+import Frame741 from "../../assets/Frame741.png";
 
 ////// images imports
 import laptops from "../../assets/Category-Phone01.png";
@@ -76,12 +79,12 @@ const Landing = () => {
 
         {/* Carousel */}
         <div className="flex-1">
-          <Carousel className="ml-20 mr-20"/>
+          <Carousel className="ml-20 mr-20" />
         </div>
       </div>
 
       {/* Best Selling Products */}
-      <section className="container mx-auto p-4">
+      <section className="container mx-auto p-4 pt-30 pb-30">
         <h2 className="text-2xl font-semibold mb-4">Flash Sales</h2>
 
         {/* Swiper Slider */}
@@ -123,17 +126,28 @@ const Landing = () => {
       {/* Categories */}
 
       {/* Category Carousel */}
-      <div className="container mx-auto p-4">
-        <h2 className="text-2xl font-semibold mb-4 text-center">
-          Browse By Category
-        </h2>
+      
+      {/* Browse By Category Section */}
+      <div className="container mx-auto p-3 pt-30 pb-30">
+        {/* Centered Title with Red Bar */}
+        <div className="flex flex-col mb-4">
+          <div className="flex gap-2">
+            <div className="w-3 h-6 bg-red-600 rounded-md"></div>
+            <span className="text-red-600 font-semibold text-lg">
+              This Month
+            </span>
+          </div>
+          <h2 className="text-3xl font-bold mt-1 ">
+            Browse By Category
+          </h2>
+        </div>
 
+        {/* Swiper Carousel */}
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={10} // Reduced space between items for better fit
-          slidesPerView={6} // Display 6 items per view
+          spaceBetween={10}
+          slidesPerView={6}
           navigation
-          autoplay={{ delay: 2500 }}
           pagination={{ clickable: true }}
           breakpoints={{
             1024: { slidesPerView: 6 },
@@ -154,29 +168,61 @@ const Landing = () => {
             Gamings,
           ].map((image, index) => (
             <SwiperSlide key={index}>
-              <div className="flex flex-col items-center p-2 bg-white border border-gray-300 rounded-lg shadow-md">
+             
                 <img
                   src={image}
                   alt={`Category ${index}`}
-                  className="w-24 h-24 object-contain rounded"
-                />{" "}
-                {/* Smaller image */}
-              </div>
+                  className="w-24 h-24 object-contain rounded "
+                />
+        
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
 
       {/* Best Selling Products */}
-      <section className="container mx-auto p-4">
-        <h2 className="text-2xl font-semibold mb-4">Best Selling</h2>
-        <div className="grid grid-cols-4 gap-4">
-          <div className="bg-white p-4 rounded shadow">
-            <img src="https://via.placeholder.com/150" className="w-full" />
-            <p className="mt-2">Product Name</p>
-            <p className="text-red-500 font-bold">$99.99</p>
+      <section className="container mx-auto p-4 pt-30 pb-30">
+        {/* Title Section with "View All Products" Button */}
+        <div className="flex justify-between items-center mb-4">
+          {/* Left Side: "This Month" with Red Bar & Title */}
+          <div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-6 bg-red-600 rounded-md"></div>
+              <span className="text-red-600 font-semibold text-lg">
+                This Month
+              </span>
+            </div>
+            <h2 className="text-3xl font-bold mt-1">Best Selling Products</h2>
           </div>
-          {/* Repeat similar divs for more products */}
+
+          {/* Right Side: "View All Products" Button */}
+          <NavLink
+            to="/client/products"
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+          >
+            View All Products
+          </NavLink>
+        </div>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-4 gap-4">
+          {productsData.slice(0, 4).map((product) => (
+            <div key={product.id} className="bg-white p-4 rounded shadow">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-40 object-cover rounded"
+              />
+              <p className="mt-2 font-bold">{product.name}</p>
+              <p className="text-red-500 font-bold">${product.price}</p>
+              <p className="text-gray-400 line-through">
+                ${product.originalPrice || (product.price * 1.2).toFixed(2)}
+              </p>
+              <button className="mt-2 bg-black text-white px-4 py-2 rounded">
+                Add to Cart
+              </button>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -238,9 +284,77 @@ const Landing = () => {
       </div>
 
       {/* Footer */}
-      <div>
-        <img src={Footer} alt="" />
-      </div>
+      <footer className="bg-gray-900 text-white py-10">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-5 gap-6 px-6">
+          {/* Exclusive Section */}
+          <div>
+            <h1 className="text-xl font-bold">Exclusive</h1>
+            <h2 className="mt-5">Subscribe</h2>
+            <h2>Get 10% off your first order</h2>
+          </div>
+
+          {/* Support Section */}
+          <div>
+            <h1 className="text-xl font-bold">Support</h1>
+            <h2 className="mt-5">111 Bijoy Ghazela</h2>
+            <h2>exclusive@gmail.com</h2>
+            <h2>+216 44411155</h2>
+          </div>
+
+          {/* Account Section */}
+          <div>
+            <h1 className="text-xl font-bold">Account</h1>
+            <ul className="mt-5 space-y-2">
+              <li>My Account</li>
+
+              <NavLink to="/client/signup">
+                <li>Login / Register</li>
+              </NavLink>
+              <NavLink to="/client/cart">
+                <li>Cart</li>
+              </NavLink>
+
+              <li>Wishlist</li>
+
+              <NavLink to="/client/products">
+                <li>Shop</li>
+              </NavLink>
+            </ul>
+          </div>
+
+          {/* Links Section */}
+          <div>
+            <ul className="space-y-2">
+              <NavLink to="/client/contact">
+                <li>Privacy Policy</li>
+              </NavLink>
+
+              <NavLink to="/client/contact">
+                <li>Terms Of Use</li>
+              </NavLink>
+              <NavLink to="/client/contact">
+                <li>FAQ</li>
+              </NavLink>
+
+              <NavLink to="/client/contact">
+                <li>Contact</li>
+              </NavLink>
+            </ul>
+          </div>
+
+          {/* Download App Section */}
+          <div>
+            <h1 className="text-xl font-bold">Download App</h1>
+            <img src={Frame719} alt="Play Store" className="mt-5 w-50" />
+            <img src={Frame741} alt="" className="mt-10" />
+          </div>
+        </div>
+
+        {/* Footer Image */}
+        <div className="mt-10 text-center">
+          <img src={Footer} alt="Footer" className="mx-auto" />
+        </div>
+      </footer>
     </div>
   );
 };
