@@ -48,8 +48,8 @@ db.Product.belongsToMany(db.Carts, { through: "carts_products" });
 
 
 // Set up Many-to-Many Relationship
-User.belongsToMany(Product, { through: likes, foreignKey: 'user_id' });
-Product.belongsToMany(User, { through: likes, foreignKey: 'product_id' });
+db.User.belongsToMany(db.Product, { through: db.Likes, foreignKey: 'user_id' });
+db.Product.belongsToMany(db.User, { through: db.Likes, foreignKey: 'product_id' });
 // sequelize
 //   .sync({ alter: true })
 //   .then(() => {
