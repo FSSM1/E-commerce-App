@@ -29,8 +29,7 @@ function Allproduct() {
         "http://127.0.0.1:3000/api/categories/getAll"
       );
       console.log("Fetched categories:", response.data.data);
-      // Add "All" category to the list
-      setCategories([{ id: "all", name: "All" }, ...response.data.data]);
+      setCategories(response.data.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -41,6 +40,18 @@ function Allproduct() {
     try {
       const products = await axios.get(
         "http://127.0.0.1:3000/api/products/getAll"
+      );
+      console.log("Fetched products:", products.data.data);
+      setData(products.data.data);
+      setFilteredData(products.data.data); // Initialize filtered data with all products
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+  const fetchProductsbyCategory = async (id) => {
+    try {
+      const products = await axios.get(
+        `http://127.0.0.1:3000/api/products/productcategory/${id}`
       );
       console.log("Fetched products:", products.data.data);
       setData(products.data.data);
@@ -65,12 +76,6 @@ function Allproduct() {
         el.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
-    // Filter by category (skip if "All" is selected)
-    if (selectedCategory && selectedCategory !== "All") {
-      filtered = filtered.filter((el) => el.category === selectedCategory);
-    }
-
     setFilteredData(filtered);
     setCurrentPage(1); // Reset to the first page after filtering
   }, [searchTerm, selectedCategory, data]);
@@ -95,7 +100,16 @@ function Allproduct() {
       <div className="w-64 bg-gray-50 p-6 shadow-md fixed h-full overflow-y-auto">
         <h2 className="text-xl font-bold mb-6 text-gray-800">Categories</h2>
         <ul className="space-y-2">
-          
+        <li
+              className={`p-3 rounded-lg 00.0
+                0...02100- pointer transition-all 
+                  "bg-blue-500 text-white"
+                "bg-white hover:bg-gray-100 text-gray-700"
+              }`}
+              onClick={() => fetchProducts()}
+            >
+              <span className="font-medium">All</span>
+            </li>
           {categories.map((category) => (
             <li
               key={category.id}
@@ -105,7 +119,7 @@ function Allproduct() {
                   ? "bg-blue-500 text-white"
                   : "bg-white hover:bg-gray-100 text-gray-700"
               }`}
-              onClick={() => setSelectedCategory(category.name)}
+              onClick={() => fetchProductsbyCategory(category.id)}
             >
               <span className="font-medium">{category.name}</span>
             </li>

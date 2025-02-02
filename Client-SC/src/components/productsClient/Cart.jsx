@@ -23,7 +23,7 @@ const Cart = () => {
         id: item.id,
         quantity: item.quantity,
       }));
-
+     
       // Send purchase request to the backend
       const response = await axios.post(
         "http://localhost:3000/api/carts/purchase",

@@ -13,7 +13,6 @@ import Cart from "./components/productsClient/Cart";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 
-import Paiement from "../src/components/productsClient/Paiement";
 
 
 import LandingClient from "../src/pages/client/Landing";
@@ -79,11 +78,7 @@ const router = createBrowserRouter([
         element: <Cart />,
         errorElement: <ErrorElement />,
       },
-      {
-        path: "Paiement",
-        element: <Paiement />,
-        errorElement: <ErrorElement />,
-      },
+     
     ],
   },
 

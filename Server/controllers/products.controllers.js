@@ -67,17 +67,23 @@ module.exports = {
       });
     }
   },
-  getproductbyuser: async (req, res) => {
+  getProductsByCategory: async (req, res) => {
     try {
-      await Product.update(req.body, { where: { id: req.params.productId } });
-      res.send({ message: "success to update one Product" });
-    } catch (err) {
+      const {id}=req.params
+      console.log(id,"caategooooryyyyy iddddddddd")
+      const products=await Product.findAll({ where: { categoryId: id} });
+      res
+      .status(200)
+      .send({ message: "success to get all Product", data: products });    } catch (err) {
       console.error({
-        messageError: "unable to update one Product",
+        messageError: "unable to get product with category",
         error: err,
       });
+      res.status(500).json({ error: 'failed to get products by category' });
+
     }
   },
+
   paywithflouci: async (req, res) => {
            try {
         console.log("api secreet", FLOUCI_API_KEY)

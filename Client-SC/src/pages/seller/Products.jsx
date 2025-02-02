@@ -5,12 +5,12 @@ import AddProduct from "../../components/productsSeller/AddProduct"
 import EditProduct from "../../components/productsSeller/EditProduct"
 import Allproduct from "../../components/productsSeller/Allproduct"
 import axios from 'axios';
-function Products() {
-
+const Products = () =>{
 const [showAddProduct, setShowAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null)
 const [product, setProducts] = useState([]);
 const [categories, setCategories] = useState([]);
+const user = JSON.parse(localStorage.getItem("user"));
 
 
 const getAllCategories = async () => {
@@ -21,36 +21,38 @@ const getAllCategories = async () => {
   } catch (error) {
     throw error;
   }
-};
-const user = JSON.parse(localStorage.getItem("user"));
+}
 
 
-  const fetchproduct = async (id) => {
-    if(user.role == "seller"||user.role == "admin"){
+  const fetchproduct = async () => {
+    if(user.role == "seller"){
       try {
         const products = await axios.get(`http://127.0.0.1:3000/api/products/productseller/${user.id}`);
         console.log("Fetched products:", products.data.data);
         setProducts(products.data.data);
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Error fetching products:", error);
       }
     }
-    
-  };
+  };  
+
   useEffect(() => {
     getAllCategories()
     fetchproduct()
   }, []);
 
   const handleDelete = async (id) => {
+    if(user.role == "seller"){
+
     try {
+
       await axios.delete(`http://127.0.0.1:3000/api/products/delete/${id}`);
       fetchproduct(); 
     } catch (error) {
       console.error("Error deleting product:", error);
-    }
+    }}
   };
+
   const handleEdit = async(product) => {
     setSelectedProduct(product); 
     setShowAddProduct(false); 
@@ -58,6 +60,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 
   
   const handleSave = async (productData) => {
+    if(user.role == "seller"){
+
     try {
       if (productData.id) {
         // If there's an ID, we're updating an existing user
@@ -71,7 +75,7 @@ const user = JSON.parse(localStorage.getItem("user"));
       setSelectedProduct(null); // Clear selected user after saving
     } catch (error) {
       console.error("Error saving user:", error);
-    }
+    }}
   };
 
   return (
@@ -115,4 +119,4 @@ const user = JSON.parse(localStorage.getItem("user"));
   )
 }
 
-export default Products
+export default Products;

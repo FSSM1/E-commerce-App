@@ -1,26 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid, Box, Button, TextField } from '@mui/material';
+import { Grid, Box, Button, TextField} from '@mui/material';
 
+import Container from '@mui/material/Container';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { useParams } from "react-router-dom";
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]); // For search results
- 
-  const [searchQuery, setSearchQuery] = useState(''); // For search input
+  const  userid  = useParams(); 
+   const [searchQuery, setSearchQuery] = useState(''); // For search input
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user,'usssserrid')
 
+  
 
   // Fetch all products
   const fetchproductuser = async () => {
+    if(user.role=="admin"){
     try {
-      const products = await axios.get("http://127.0.0.1:3000/api/products/getAll");
+      const products = await axios.get(`http://127.0.0.1:3000/api/admin/adminproductuser/${userid.id}`,{
+        headers: {
+          'user-id': user.id, // Send the logged-in user's ID in the headers
+        },
+      });
       console.log("Fetched products:", products.data.data);
       setData(products.data.data);
       setFilteredData(products.data.data); // Initialize filtered data with all products
     } catch (error) {
       console.error("Error fetching products:", error);
-    }
+    }}
   };
 
   // Handle search input change
@@ -36,7 +50,7 @@ const Products = () => {
   };
 
   useEffect(() => {
-    
+    fetchproductuser()
   }, []);
 
   return (

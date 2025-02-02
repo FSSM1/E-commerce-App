@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import UserProducts from "./UserProducts"
+
+
 import {
   Table,
   TableBody,
@@ -12,6 +15,9 @@ import {
 import { useNavigate } from "react-router-dom";
 const UserList = ({ users, onDelete, onEdit, onGetProducts }) => {
   const navigate=useNavigate()
+
+
+  
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -52,16 +58,21 @@ const UserList = ({ users, onDelete, onEdit, onGetProducts }) => {
                   <Button
                     variant="contained"
                     color="secondary"
-                   onClick={() => onGetProducts && onGetProducts(user.id)}
+                   onClick={() => navigate(`/user-products/${user.id}`)}
                   >
                     Get Products
                   </Button>
+                  
                 )}
+     
+
               </TableCell>
             </TableRow>
+            
           ))}
         </TableBody>
       </Table>
+
     </TableContainer>
   );
 };
