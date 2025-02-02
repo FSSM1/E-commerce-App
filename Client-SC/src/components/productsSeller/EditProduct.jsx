@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {toast} from "react-toastify"
 import {
   TextField,
   Button,
@@ -36,6 +37,7 @@ const EditProduct = ({ categories, product, handleSave, setSelectedProduct }) =>
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
+      toast.success("imaged updated")
 
       setFormData((prev) => ({ ...prev, image: response.data.file.path })); // Update image URL
     } catch (error) {
@@ -46,6 +48,7 @@ const EditProduct = ({ categories, product, handleSave, setSelectedProduct }) =>
   const handleSubmit = async (e) => {
     e.preventDefault();
     await handleSave(formData);
+    toast.success("submitted ")
   };
 
   return (

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {toast} from "react-toastify"
+
 
 const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -40,6 +42,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+      toast.success("imaged uploaded")
 
       setFormData((prev) => ({ ...prev, image: response.data.file.path })); // Update image URL
     } catch (error) {
@@ -51,6 +54,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
     e.preventDefault();
     handleSave(formData);
     setShowAddProduct(false);
+    toast.success("submitted")
   };
 
   return (

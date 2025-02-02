@@ -10,25 +10,25 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-neutral py-2 text-neutral-content">
-      <div className="align-element flex justify-center sm:justify-end">
+    <header className="bg-black py-2 text-white">
+      <div className="flex justify-center sm:justify-end items-center">
         {user ? (
           <div className="flex gap-x-2 sm:gap-x-8 items-center">
             <p className="text-xs sm:text-sm">Hello, {user.firstname}</p>
             <button
-              className="btn btn-xs btn-outline btn-primary"
+              className="btn btn-xs bg-red-500 text-white hover:bg-red-600 transition duration-300 ease-in-out rounded-lg px-4 py-2"
               onClick={handleLogout}
             >
               Logout
             </button>
           </div>
         ) : (
-          <div className="flex gap-x-6 justify-center items-center">
-            <Link to="/login" className="link link-hover text-xs sm:text-sm">
+          <div className="flex gap-x-6 justify-center items-center pl-20">
+            <Link
+              to="/login"
+              className="link link-hover text-xs sm:text-sm text-blue-500 hover:text-blue-700 transition duration-300 ease-in-out"
+            >
               Log in
-            </Link>
-            <Link to="/signup" className="link link-hover text-xs sm:text-sm">
-              Create Account
             </Link>
           </div>
         )}

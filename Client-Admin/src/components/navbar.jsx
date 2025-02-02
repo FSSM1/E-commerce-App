@@ -5,21 +5,18 @@ import ProfileDropdown from "../pages/ProfileDropdown";
 
 const Navbar = () => {
   return (
-    <nav className="bg-base-200">
-      <div className="navbar align-element flex justify-between items-center">
+    <nav className="bg-base-200 shadow-md">
+      <div className="navbar container mx-auto flex justify-between items-center py-4 px-6">
         {/* Navbar Start */}
         <div className="navbar-start">
-          <NavLink
-            to="/"
-            className="hidden lg:flex btn btn-primary text-3xl items-center"
-          >
-            c
-          </NavLink>
+        <div className="text-2xl font-bold">
+            <NavLink to="/">Exclusive</NavLink>
+          </div>
         </div>
 
         {/* Navbar Center (Menu Links) */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal flex space-x-4">
+          <ul className="menu menu-horizontal flex space-x-6">
             <NavLinks />
           </ul>
         </div>
@@ -30,8 +27,14 @@ const Navbar = () => {
 
         {/* Navbar End (Buttons) */}
         <div className="navbar-end flex items-center space-x-4">
-          <NavLink to="/products" className="btn btn-ghost btn-circle btn-md" />
-          <NavLink to="/users" className="btn btn-ghost btn-circle btn-md" />
+          <NavLink
+            to="/products"
+            className="btn btn-ghost btn-circle btn-md hover:bg-gray-300"
+          />
+          <NavLink
+            to="/users"
+            className="btn btn-ghost btn-circle btn-md hover:bg-gray-300"
+          />
         </div>
       </div>
     </nav>
