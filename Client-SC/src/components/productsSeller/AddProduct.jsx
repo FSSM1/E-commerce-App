@@ -3,7 +3,7 @@ import axios from "axios";
 
 const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
   const user = JSON.parse(localStorage.getItem("user"))
-  console.log("useridddd", user.id)
+  
   const [formData, setFormData] = useState({
     name: "",
     description: "",
