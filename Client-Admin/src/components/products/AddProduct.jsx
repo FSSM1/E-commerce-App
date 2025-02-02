@@ -11,6 +11,9 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
+import { toast, ToastContainer } from "react-toastify";
+
+
 const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -43,6 +46,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
       const response = await axios.post("http://127.0.0.1:3000/api/upload", uploadFormData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      toast.success("image added successfully ")
 
       setFormData((prev) => ({ ...prev, image: response.data.file.path })); // Update image URL
     } catch (error) {
@@ -54,6 +58,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
     e.preventDefault();
     handleSave(formData);
     setShowAddProduct(false);
+    toast.success(" added successfully ")
   };
 
   return (
@@ -100,6 +105,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
           Cancel
         </Button>
       </form>
+      <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
     </Box>
   );
 };

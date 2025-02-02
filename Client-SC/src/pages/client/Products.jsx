@@ -11,6 +11,8 @@ const Products = () => {
   const data = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
   console.log("data from redux", data);
+
+  
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, []);
