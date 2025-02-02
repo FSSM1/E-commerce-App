@@ -12,10 +12,9 @@ const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [categories, setCategories] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // For search input
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  console.log(categories, "dddddddddddddddddddd");
 
-  // Fetch all categories
   const getAllCategories = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:3000/api/categories/getAll");
@@ -26,10 +25,9 @@ const Products = () => {
     }
   };
 
-  // Fetch all products
   const fetchproduct = async () => {
     try {
-      const products = await axios.get("http://127.0.0.1:3000/api/products/getAll");
+      const products = await axios.get("http://127.0.0.1:3000/api/admin/getAll");
       console.log("Fetched products:", products.data.data);
       setData(products.data.data);
       setFilteredData(products.data.data); // Initialize filtered data with all products
@@ -40,12 +38,18 @@ const Products = () => {
 
   // Handle product deletion
   const handleDelete = async (id) => {
+    if(user.role=="admin"){
+
     try {
-      await axios.delete(`http://127.0.0.1:3000/api/products/delete/${id}`);
+      await axios.delete(`http://127.0.0.1:3000/api/admin/delete/${id}`,{
+        headers: {
+          'user-id': user.id, // Send the logged-in user's ID in the headers
+        },
+      });
       fetchproduct(); // Re-fetch the product list after deletion
     } catch (error) {
       console.error("Error deleting product:", error);
-    }
+    }}
   };
 
   // Handle product edit
@@ -56,21 +60,29 @@ const Products = () => {
 
   // Save the product (for Add or Edit)
   const handleSave = async (productData) => {
+    if(user.role=="admin"){
+
     try {
       if (productData.id) {
-        // If there's an ID, we're updating an existing product
-        await axios.put(`http://127.0.0.1:3000/api/products/update/${productData.id}`, productData);
+        await axios.put(`http://127.0.0.1:3000/api/admin/update/${productData.id}`, productData,{
+          headers: {
+            'user-id': user.id, 
+          },
+        });
       } else {
-        // Otherwise, we're creating a new product
-        await axios.post(`http://127.0.0.1:3000/api/products/add`, productData);
+        await axios.post(`http://127.0.0.1:3000/api/admin/add`, productData,{
+          headers: {
+            'user-id': user.id, 
+          },
+        });
       }
-      fetchproduct(); // Refresh the list
-      setShowAddProduct(false); // Hide the form
-      setSelectedProduct(null); // Clear selected product after saving 
+      fetchproduct(); 
+      setShowAddProduct(false); 
+      setSelectedProduct(null); 
     
   } catch (error) {
       console.error("Error saving product:", error);
-    }
+    }}
   };
 
   // Handle search input change

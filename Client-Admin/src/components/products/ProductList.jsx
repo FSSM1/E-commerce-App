@@ -50,6 +50,7 @@ const ProductList = ({ data, handleDelete ,handleEdit}) => {
                 <Button variant="contained" color="primary" size="small" onClick={()=>{handleEdit(el)}}>
                   Update
                 </Button>
+                
               </CardActions>
             </Card>
           </Grid>

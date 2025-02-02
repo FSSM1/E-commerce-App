@@ -11,6 +11,7 @@ const cartsRouter = require("./routers/carts.routers");
 const productsRouter = require("./routers/products.routers");
 const usersRouter = require("./routers/users.routers");
 const categoriesRouter = require("./routers/categories.routers");
+const adminrouter = require("./routers/admin.routers");
 
 // Import the Multer router
 const multerRouter = require("./routers/multer");
@@ -28,6 +29,7 @@ app.use("/api/carts", cartsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/categories", categoriesRouter);
+app.use("/api/admin", adminrouter);
 
 // Multer image upload route
 app.use("/api/upload", multerRouter);
