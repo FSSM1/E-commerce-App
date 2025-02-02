@@ -30,7 +30,7 @@ import Gamings from "../../assets/Category-Phone05.png";
 const Landing = () => {
   const [productsData, setProductsData] = useState([]);
   const [eightProducts, seteightProducts] = useState([]);
-
+  const [categories,setCategories]=useState([])
   const firsteightss = function (dataa) {
     const res = dataa.slice(0, 8);
     seteightProducts(res);
@@ -50,7 +50,17 @@ const Landing = () => {
       console.error("Error fetching products:", error);
     }
   };
-
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:3000/api/categories/getAll"
+      );
+      console.log("Fetched categories:", response.data.data);
+      setCategories(response.data.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -61,12 +71,9 @@ const Landing = () => {
         {/* Sidebar */}
         <div className="w-1/5 bg-white text-black border-r border-gray-300">
           <ul className="space-y-4 pl-20">
-            <li className="text-base">SmartWatch</li>
-            <li className="text-base">Computers</li>
-            <li className="text-base">Gaming</li>
-            <li className="text-base">Phones</li>
-            <li className="text-base">Headphones</li>
-            <li className="text-base">Cameras</li>
+            {categories.map(categ=>(
+              <li className="text-base">{categ}</li>
+            ))}
           </ul>
         </div>
 
