@@ -37,8 +37,11 @@ module.exports = {
     }
   },
   addOneProduct: async (req, res) => {
+    
     try {
+      console.log("body ddd",req.body)
       const product = await Product.create(req.body);
+   
       res.send({ message: "success to add one Product", data: product });
     } catch (err) {
        
