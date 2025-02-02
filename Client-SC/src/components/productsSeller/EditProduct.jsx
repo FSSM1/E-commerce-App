@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { TextField, Button, Box, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 const EditProduct = ({categories,product,handleSave,setSelectedProduct}) => {
   const [formData, setFormData] = useState(product)
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const handleChange = (e) => {
     const{name,value}=e.target
     setFormData({...formData, [name]:value })

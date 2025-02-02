@@ -48,16 +48,16 @@ db.Product.belongsToMany(db.Carts, { through: "carts_products" });
 
 
 // Set up Many-to-Many Relationship
-User.belongsToMany(Product, { through: likes, foreignKey: 'user_id' });
-Product.belongsToMany(User, { through: likes, foreignKey: 'product_id' });
-sequelize
-  .sync({ alter: true })
-  .then(() => {
-    console.log("phrase table created successfully!");
-  })
-  .catch((error) => {
-    console.error("Unable to create table : ", error);
-  });
+db.User.belongsToMany(db.Product, { through: db.Likes, foreignKey: 'user_id' });
+db.Product.belongsToMany(db.User, { through: db.Likes, foreignKey: 'product_id' });
+// sequelize
+//   .sync({ alter: true })
+//   .then(() => {
+//     console.log("phrase table created successfully!");
+//   })
+//   .catch((error) => {
+//     console.error("Unable to create table : ", error);
+//   });
 
 // Export the sequelize instance and the Expense model
 module.exports = db;
