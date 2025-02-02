@@ -350,10 +350,10 @@ const Landing = () => {
           </div>
         </div>
 
-        {/* Footer Image */}
+        {/* Footer Image
         <div className="mt-10 text-center">
           <img src={Footer} alt="Footer" className="mx-auto" />
-        </div>
+        </div> */}
       </footer>
     </div>
   );

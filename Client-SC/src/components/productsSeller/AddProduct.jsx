@@ -12,7 +12,7 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
     image: "",
     nbSold: "",
     categoryId: "",
-    userId: 29
+    // userId: 29
   });
 
   const [newImage, setNewImage] = useState(null);
