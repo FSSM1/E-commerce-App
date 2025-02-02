@@ -18,6 +18,7 @@ const Categories = () => {
     try {
       const response = await axios.get("http://127.0.0.1:3000/api/categories/getAll");
       setCategories(response.data.data);
+      setFilteredData(response.data.data); // Initialize filteredData with full list
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -40,8 +41,8 @@ const Categories = () => {
 
   // Handle category edit
   const handleEdit = (categorie) => {
-    setSelectedcategorie(categorie); // Set the category to edit
-    setShowAddcategorie(false); // Hide the Add form
+    setSelectedcategorie(categorie);
+    setShowAddcategorie(false);
   };
 
   // Save the category (for Add or Edit)
@@ -69,14 +70,18 @@ const Categories = () => {
 
   // Handle search input change
   const handleSearchChange = (e) => {
-    const query = e.target.value;
+    const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
     // Filter categories based on the search query
-    const filtered = categories.filter((categorie) =>
-      categorie.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredData(filtered);
+    if (query === "") {
+      setFilteredData(categories); // Reset to full list if search is cleared
+    } else {
+      const filtered = categories.filter((categorie) =>
+        categorie.name.toLowerCase().includes(query)
+      );
+      setFilteredData(filtered);
+    }
   };
 
   useEffect(() => {
@@ -101,11 +106,11 @@ const Categories = () => {
         <Grid item xs={2} sx={{ bgcolor: "#f5f5f5", display: "flex", alignItems: "flex-start", justifyContent: "left" }}>
           <Box sx={{ marginBottom: "20px" }}>
             <Button variant="text" color="primary" size="large" onClick={() => setShowAddcategorie(false)} sx={{ marginRight: "10px" }}>
-              Categorie List
+              Category List
             </Button>
             <br />
             <Button variant="text" color="secondary" size="large" onClick={() => setShowAddcategorie(true)}>
-              Add Categorie
+              Add Category
             </Button>
           </Box>
         </Grid>
@@ -120,11 +125,7 @@ const Categories = () => {
                 setSelectedcategorie={setSelectedcategorie}
               />
             ) : (
-              <CategoriesList
-                categories={searchQuery ? filteredData : categories}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
-              />
+              <CategoriesList categories={filteredData} handleDelete={handleDelete} handleEdit={handleEdit} />
             )}
           </Box>
         </Grid>
