@@ -25,6 +25,9 @@ import Signup from "./pages/Signup";
 import ErrorElement from "./components/ErrorElement";
 import Oneproduct from "./components/productsClient/Oneproduct";
 
+import AboutClient from "./pages/client/About";
+import AboutSeller from "./pages/seller/About";
+
 const router = createBrowserRouter([
   {
     path: "/client",
@@ -76,6 +79,11 @@ const router = createBrowserRouter([
         element: <Cart />,
         errorElement: <ErrorElement />,
       },
+      {
+        path: "about",
+        element: <AboutClient />,
+        errorElement: <ErrorElement />,
+      },
     ],
   },
 
@@ -124,7 +132,16 @@ const router = createBrowserRouter([
         element: <Cart />,
         errorElement: <ErrorElement />,
       },
+      {
+        path: "about",
+        element: <AboutSeller />,
+        errorElement: <ErrorElement />,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorElement />,
   },
 ]);
 
