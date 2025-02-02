@@ -12,6 +12,8 @@ import {
 import axios from "axios"; // Import axios for file upload
 
 const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user.id,'uuuser')
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -30,8 +32,8 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
       quantity: "",
       image: "",
       nbSold: "",
-      categoryId: "",
-    });
+      categoryId: ""
+        });
   }, []);
 
   const handleChange = (e) => {
