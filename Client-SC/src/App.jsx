@@ -24,6 +24,7 @@ import Signup from "./pages/Signup";
 
 import ErrorElement from "./components/ErrorElement";
 import Oneproduct from "./components/productsClient/Oneproduct";
+import ResetPassword from "./pages/seller/ResetPassword";
 
 import AboutClient from "./pages/client/About";
 import AboutSeller from "./pages/seller/About";
@@ -130,6 +131,11 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: <Cart />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
         errorElement: <ErrorElement />,
       },
       {

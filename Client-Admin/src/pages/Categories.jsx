@@ -11,6 +11,7 @@ const Categories = () => {
   const [selectedcategorie, setSelectedcategorie] = useState(null);
   const [categories, setCategories] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // For search input
+  const user = JSON.parse(localStorage.getItem("user"));
 
   // Fetch all categories
   const fetchCategories = async () => {
@@ -26,8 +27,13 @@ const Categories = () => {
   // Handle category deletion
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:3000/api/categories/delete/${id}`);
-      fetchCategories(); // Re-fetch categories after deletion
+      if (user && user.role === "admin") {
+        await axios.delete(`http://127.0.0.1:3000/api/categories/delete/${id}`,{headers: {
+          'user-id': user.id, // Send the logged-in user's ID in the headers
+        },
+      });
+        fetchCategories(); // Re-fetch the category list after deletion
+      }
     } catch (error) {
       console.error("Error deleting category:", error);
     }
@@ -42,16 +48,21 @@ const Categories = () => {
   // Save the category (for Add or Edit)
   const handleSave = async (categorieData) => {
     try {
-      if (categorieData.id) {
-        // Updating existing category
-        await axios.put(`http://127.0.0.1:3000/api/categories/update/${categorieData.id}`, categorieData);
-      } else {
-        // Creating new category
-        await axios.post(`http://127.0.0.1:3000/api/categories/add`, categorieData);
+      if (user && user.role === "admin") {
+        if (categorieData.id) {
+          // Update existing category
+          await axios.put(`http://127.0.0.1:3000/api/categories/update/${categorieData.id}`, categorieData,{headers: {
+            'user-id': user.id, // Send the logged-in user's ID in the headers
+          },
+        });
+        } else {
+          // Add new category
+          await axios.post(`http://127.0.0.1:3000/api/categories/add`, categorieData);
+        }
+        fetchCategories(); // Refresh the list
+        setShowAddcategorie(false); // Hide the form
+        setSelectedcategorie(null); // Clear selected category after saving
       }
-      fetchCategories(); // Refresh the list
-      setShowAddcategorie(false);
-      setSelectedcategorie(null);
     } catch (error) {
       console.error("Error saving category:", error);
     }
@@ -91,7 +102,7 @@ const Categories = () => {
         />
       </Box>
 
-      <Grid container sx={{ height: "100vh" }}>
+      <Grid container sx={{ minHeight: "100vh" }}>
         <Grid item xs={2} sx={{ bgcolor: "#f5f5f5", display: "flex", alignItems: "flex-start", justifyContent: "left" }}>
           <Box sx={{ marginBottom: "20px" }}>
             <Button variant="text" color="primary" size="large" onClick={() => setShowAddcategorie(false)} sx={{ marginRight: "10px" }}>
