@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
-  const user = JSON.parse(localStorage.getItem("user"))
-  
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -11,15 +11,15 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
     quantity: "",
     image: "",
     nbSold: "",
-    categoryId: "",
-    userId: 29
+    categoryId: "", // Ensure this is initialized correctly
+    userId: user.id,
   });
 
   const [newImage, setNewImage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value }); // Update the correct field
   };
 
   // ✅ Handle Image Upload
@@ -130,11 +130,12 @@ const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
           <label className="block text-sm font-medium text-gray-700">Category</label>
           <select
             name="categoryId"
-            value={formData.categoryId || ""}
-            onChange={handleChange}
+            value={formData.categoryId} // Bind to formData.categoryId
+            onChange={handleChange} // Use the same handleChange function
             required
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           >
+            <option value="" disabled>Select a category</option> {/* Add a default disabled option */}
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
