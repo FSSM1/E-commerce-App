@@ -9,6 +9,7 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 
 const EditProduct = ({ categories, product, handleSave, setSelectedProduct }) => {
@@ -36,6 +37,7 @@ const EditProduct = ({ categories, product, handleSave, setSelectedProduct }) =>
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
+      toast.success("image added successfully ")
 
       setFormData((prev) => ({ ...prev, image: response.data.file.path })); // Update image URL
     } catch (error) {
@@ -46,6 +48,7 @@ const EditProduct = ({ categories, product, handleSave, setSelectedProduct }) =>
   const handleSubmit = async (e) => {
     e.preventDefault();
     await handleSave(formData);
+    toast.success(" edited successfully ")
   };
 
   return (
@@ -139,6 +142,7 @@ const EditProduct = ({ categories, product, handleSave, setSelectedProduct }) =>
           Cancel
         </Button>
       </form>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
     </Box>
   );
 };

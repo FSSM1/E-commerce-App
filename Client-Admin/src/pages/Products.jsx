@@ -4,6 +4,7 @@ import { Grid, Box, Button, TextField } from '@mui/material';
 import ProductList from '../components/products/ProductList.jsx';
 import AddProduct from '../components/products/AddProduct.jsx';
 import EditProduct from '../components/products/EditProduct.jsx';
+import { toast } from 'react-toastify';
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -46,6 +47,7 @@ const Products = () => {
           'user-id': user.id, // Send the logged-in user's ID in the headers
         },
       });
+      toast.success("deleted successfully ")
       fetchproduct(); // Re-fetch the product list after deletion
     } catch (error) {
       console.error("Error deleting product:", error);

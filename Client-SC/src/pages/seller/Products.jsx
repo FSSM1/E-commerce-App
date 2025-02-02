@@ -5,6 +5,7 @@ import AddProduct from "../../components/productsSeller/AddProduct"
 import EditProduct from "../../components/productsSeller/EditProduct"
 import Allproduct from "../../components/productsSeller/Allproduct"
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const Products = () =>{
 const [showAddProduct, setShowAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null)
@@ -48,6 +49,7 @@ const getAllCategories = async () => {
 
       await axios.delete(`http://127.0.0.1:3000/api/products/delete/${id}`);
       fetchproduct(); 
+      toast.error("deleted sucessfully ")
     } catch (error) {
       console.error("Error deleting product:", error);
     }}

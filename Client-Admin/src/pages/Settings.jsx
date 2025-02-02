@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField, Button, Paper } from "@mui/material";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Settings = () => {
   const [newEmail, SetNewEmail] = useState("");
@@ -17,6 +18,7 @@ const Settings = () => {
     axios.put(`http://127.0.0.1:3000/api/users/update/${user.id}`, {
       email: newEmail,
     });
+    toast.success("email updated successfully ")
     alert("Email updated successfully!");
   };
 
@@ -25,6 +27,7 @@ const Settings = () => {
     axios.put(`http://127.0.0.1:3000/api/users/update/${user.id}`, {
       password: newPassword,
     });
+    toast.success("password successfully ")
     alert("Password updated successfully!");
   };
 
