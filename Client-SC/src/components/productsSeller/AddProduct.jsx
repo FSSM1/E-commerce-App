@@ -1,43 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
-const AddProduct = ({ categories,handleSave,setShowAddProduct, }) => {
+import React, { useState, useEffect } from "react";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+import axios from "axios"; // Import axios for file upload
+
+const AddProduct = ({ categories, handleSave, setShowAddProduct }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    quantity: '',
-    image: '',
-    nbSold: '',
-    categoryId: '',
+    name: "",
+    description: "",
+    price: "",
+    quantity: "",
+    image: "",
+    nbSold: "",
+    categoryId: "",
   });
-  useEffect(() =>{
+
+  useEffect(() => {
     setFormData({
-      name: '',
-      description: '',
-      price: '',
-      quantity: '',
-      image: '',
-      nbSold: '',
-      categoryId: ''
-    })
-  },[])
+      name: "",
+      description: "",
+      price: "",
+      quantity: "",
+      image: "",
+      nbSold: "",
+      categoryId: "",
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
+  };
+
+  // Handle Image Upload
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:3000/api/upload",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      // Assuming the response contains the URL of the uploaded image
+      setFormData({
+        ...formData,
+        image: response.data.file.path, // Adjust to the correct field from the response
+      });
+    } catch (error) {
+      console.error("Image upload failed:", error);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSave(formData);
-  setShowAddProduct(false);
+    setShowAddProduct(false);
   };
 
   return (
-    <Box sx={{ maxWidth: 500, margin: 'auto', padding: 3 }}>
+    <Box sx={{ maxWidth: 500, margin: "auto", padding: 3 }}>
       <Typography variant="h4" gutterBottom>
         Add Product
       </Typography>
@@ -50,6 +86,7 @@ const AddProduct = ({ categories,handleSave,setShowAddProduct, }) => {
           onChange={handleChange}
           margin="normal"
           required
+          className="py-2"
         />
         <TextField
           fullWidth
@@ -59,6 +96,7 @@ const AddProduct = ({ categories,handleSave,setShowAddProduct, }) => {
           onChange={handleChange}
           margin="normal"
           required
+          className="py-2"
         />
         <TextField
           fullWidth
@@ -69,6 +107,7 @@ const AddProduct = ({ categories,handleSave,setShowAddProduct, }) => {
           onChange={handleChange}
           margin="normal"
           required
+          className="py-2"
         />
         <TextField
           fullWidth
@@ -79,16 +118,23 @@ const AddProduct = ({ categories,handleSave,setShowAddProduct, }) => {
           onChange={handleChange}
           margin="normal"
           required
+          className="py-2"
         />
-        <TextField
-          fullWidth
-          label="Image URL"
-          name="image"
-          value={formData.image}
-          onChange={handleChange}
-          margin="normal"
-          required
+
+        {/* File Input for Image Upload */}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="mt-4 p-2 border-2 border-gray-300 rounded-lg text-gray-700 hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+
+        {formData.image && (
+          <Typography sx={{ mt: 1, color: "green" }} className="text-sm">
+            Image uploaded successfully!
+          </Typography>
+        )}
+
         <TextField
           fullWidth
           label="Number Sold"
@@ -98,7 +144,9 @@ const AddProduct = ({ categories,handleSave,setShowAddProduct, }) => {
           onChange={handleChange}
           margin="normal"
           required
+          className="py-2"
         />
+
         <FormControl fullWidth margin="normal" required>
           <InputLabel id="category-label">Category</InputLabel>
           <Select
@@ -108,19 +156,26 @@ const AddProduct = ({ categories,handleSave,setShowAddProduct, }) => {
             value={formData.categoryId}
             onChange={handleChange}
             label="Category"
+            className="py-2"
           >
             {categories.map((category) => (
-              <MenuItem key={category.id} value={category.id}>
+              <MenuItem
+                key={category.id}
+                value={category.id}
+                defaultValue="phone"
+              >
                 {category.name}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
+
         <Button
           type="submit"
           variant="contained"
           color="primary"
           sx={{ mt: 3 }}
+          className="w-full"
         >
           Add Product
         </Button>
