@@ -7,7 +7,7 @@ import HomeLayout from "./pages/HomeLayout"
 import ErrorElement from "./components/ErrorElement";
 import Landing from "./pages/Landing";
 import Products from "./pages/Products";
-
+import UserProducts from "./components/users/UserProducts.jsx"
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 
@@ -48,7 +48,11 @@ const router = createBrowserRouter([
         element: <Profile />,
         errorElement: < ErrorElement />,
       },
-
+      {
+        path:'user-products/:id', 
+        element: <UserProducts />,
+        errorElement: < ErrorElement />,
+      },
 
 
       // {

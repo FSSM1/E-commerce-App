@@ -70,12 +70,25 @@ module.exports = {
       });
     }
   },
+  getProductsByCategory: async (req, res) => {
+    try {
+      const {id}=req.params
+      console.log(id,"caategooooryyyyy iddddddddd")
+      const products=await Product.findAll({ where: { categoryId: id} });
+      res
+      .status(200)
+      .send({ message: "success to get all Product", data: products });    } catch (err) {
+      console.error({
+        messageError: "unable to get product with category",
+        error: err,
+      });
+      res.status(500).json({ error: 'failed to get products by category' });
+
+    }
+  },
+
   paywithflouci: async (req, res) => {
-     
-
-
-    console.log("api secreet", FLOUCI_API_KEY)
-      try {
+           try {
         console.log("api secreet", FLOUCI_API_KEY)
         console.log("api secreet", FLOUCI_API_SECRET)
 
@@ -85,7 +98,7 @@ module.exports = {
             app_token: FLOUCI_API_KEY, // Replace with your app token
             app_secret: FLOUCI_API_SECRET, // Replace with your app secret
             accept_card:true,
-            amount:5000,
+            amount:amount,
             success_link: "https://example.website.com/success",
             fail_link: "https://example.website.com/fail",
             session_timeout_secs: 1200,

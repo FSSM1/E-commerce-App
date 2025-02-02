@@ -11,18 +11,21 @@ const Users = () => {
   const [showAddUser, setShowAddUser] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const API_URL = "http://localhost:3000/api/users";
 
   // Fetch all users
   const fetchUsers = async () => {
+    if(user.role=="admin"){
+
     try {
       const response = await axios.get(`${API_URL}/getAll`);
       setUsers(response.data.data);
       setFilteredData(response.data.data);
     } catch (error) {
       console.error("Error fetching users:", error);
-    }
+    }}
   };
 
   useEffect(() => {
@@ -31,12 +34,13 @@ const Users = () => {
 
   // Delete a user
   const handleDelete = async (userId) => {
+    if(user.role=="admin"){
     try {
       await axios.delete(`${API_URL}/delete/${userId}`);
       fetchUsers();
     } catch (error) {
       console.error("Error deleting user:", error);
-    }
+    }}
   };
 
   // Edit a user
@@ -47,6 +51,7 @@ const Users = () => {
 
   // Save the user (for Add or Edit)
   const handleSave = async (userData) => {
+    if(user.role=="admin"){
     try {
       if (userData.id) {
         await axios.put(`${API_URL}/update/${userData.id}`, userData);
@@ -58,7 +63,7 @@ const Users = () => {
       setSelectedUser(null);
     } catch (error) {
       console.error("Error saving user:", error);
-    }
+    }}
   };
 
   // Handle search input
