@@ -4,24 +4,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Settings = () => {
-  const [newEmail, SetNewEmail] = useState("");
-  const [newPassword, SetNewPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   // Fetch user data from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
-  const userEmail = user?.email || "No email provided";
 
   // Placeholder functions for form submission
-  const handleUpdateEmail = (e) => {
-    e.preventDefault();
-    axios.put(`http://127.0.0.1:3000/api/users/update/${user.id}`, {
-      email: newEmail,
-    });
-    toast.success("email updated successfully ")
-    alert("Email updated successfully!");
-  };
-
   const handleUpdatePassword = (e) => {
     e.preventDefault();
     axios.put(`http://127.0.0.1:3000/api/users/update/${user.id}`, {
@@ -49,31 +39,6 @@ const Settings = () => {
           width: "100%",
         }}
       >
-        {/* Update Email Section */}
-        <Typography variant="h6" fontWeight="bold" gutterBottom>
-          Update Email
-        </Typography>
-        <form onSubmit={handleUpdateEmail}>
-          <TextField
-            fullWidth
-            label="Current Email"
-            value={userEmail}
-            margin="normal"
-            disabled
-          />
-          <TextField
-            fullWidth
-            label="New Email"
-            type="email"
-            margin="normal"
-            onChange={(e) => SetNewEmail(e.target.value)}
-            required
-          />
-          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-            Update Email
-          </Button>
-        </form>
-
         {/* Update Password Section */}
         <Typography variant="h6" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
           Update Password
@@ -81,17 +46,11 @@ const Settings = () => {
         <form onSubmit={handleUpdatePassword}>
           <TextField
             fullWidth
-            label="Current Password"
-            type="password"
-            margin="normal"
-            required
-          />
-          <TextField
-            fullWidth
             label="New Password"
             type="password"
             margin="normal"
-            onChange={(e) => SetNewPassword(e.target.value)}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
             required
           />
           <TextField
@@ -99,9 +58,16 @@ const Settings = () => {
             label="Confirm New Password"
             type="password"
             margin="normal"
-            onChange={(e) => SetNewPassword(e.target.value)}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          {/* Display error message if passwords don't match */}
+          {passwordError && (
+            <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+              {passwordError}
+            </Typography>
+          )}
           <Button type="submit" variant="contained" sx={{ mt: 2 }}>
             Update Password
           </Button>

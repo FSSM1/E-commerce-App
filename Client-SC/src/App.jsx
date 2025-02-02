@@ -25,7 +25,8 @@ import Signup from "./pages/Signup";
 import ErrorElement from "./components/ErrorElement";
 import Oneproduct from "./components/productsClient/Oneproduct";
 
-import ResetPassword from "./pages/seller/ResetPassword";
+import AboutClient from "./pages/client/About";
+import AboutSeller from "./pages/seller/About";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,11 @@ const router = createBrowserRouter([
         element: <Cart />,
         errorElement: <ErrorElement />,
       },
+      {
+        path: "about",
+        element: <AboutClient />,
+        errorElement: <ErrorElement />,
+      },
     ],
   },
 
@@ -127,11 +133,15 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: "reset-password",
-        element: <ResetPassword />,
+        path: "about",
+        element: <AboutSeller />,
         errorElement: <ErrorElement />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorElement />,
   },
 ]);
 

@@ -12,13 +12,13 @@ const productsRouter = require("./routers/products.routers");
 const usersRouter = require("./routers/users.routers");
 const categoriesRouter = require("./routers/categories.routers");
 const adminrouter = require("./routers/admin.routers");
+const messagesRoutes = require("./routers/messages.routers");
 
 // Import the Multer router
 const multerRouter = require("./routers/multer");
 
 app.use("/uploads", express.static("uploads"));
 const likesRoutes = require("./routers/LikedRouters");
-
 
 
 app.use(cookieParser());
@@ -32,6 +32,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/admin", adminrouter);
+app.use("/api/messages", messagesRoutes);
 
 
 
