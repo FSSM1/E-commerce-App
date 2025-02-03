@@ -5,6 +5,8 @@ import AddProduct from "../../components/productsSeller/AddProduct"
 import EditProduct from "../../components/productsSeller/EditProduct"
 import Allproduct from "../../components/productsSeller/Allproduct"
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 function Products() {
 
 const [showAddProduct, setShowAddProduct] = useState(false);
@@ -46,7 +48,15 @@ const user = JSON.parse(localStorage.getItem("user"));
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://127.0.0.1:3000/api/products/delete/${id}`);
+      Swal.fire({
+        icon: 'success',
+        title: 'delete?!',
+        text: 'You have deleted a product.',
+        confirmButtonText: 'OK',
+      });
       fetchproduct(); 
+        // Display a success message using SweetAlert2
+        
     } catch (error) {
       console.error("Error deleting product:", error);
     }
