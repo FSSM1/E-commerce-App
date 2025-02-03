@@ -19,10 +19,6 @@ module.exports = (sequelize, DataTypes) => {
           max: 5,
         },
       },
-      comment: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
     },
     { timestamps: false }
   );
