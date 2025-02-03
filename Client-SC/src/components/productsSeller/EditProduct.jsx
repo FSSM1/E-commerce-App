@@ -11,6 +11,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const EditProduct = ({ categories, product, handleSave, setSelectedProduct }) => {
   const [formData, setFormData] = useState(product);
@@ -48,7 +49,12 @@ const EditProduct = ({ categories, product, handleSave, setSelectedProduct }) =>
   const handleSubmit = async (e) => {
     e.preventDefault();
     await handleSave(formData);
-    toast.success("submitted ")
+    Swal.fire({
+      icon: 'success',
+      title: 'update Successful!',
+      text: 'You have successfully updated .',
+      confirmButtonText: 'OK',
+    });
   };
 
   return (
