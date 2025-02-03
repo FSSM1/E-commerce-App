@@ -6,6 +6,8 @@ import EditProduct from "../../components/productsSeller/EditProduct"
 import Allproduct from "../../components/productsSeller/Allproduct"
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import {jwtDecode} from "jwt-decode";
+
 const Products = () =>{
 const [showAddProduct, setShowAddProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null)
@@ -13,7 +15,20 @@ const [product, setProducts] = useState([]);
 const [categories, setCategories] = useState([]);
 const user = JSON.parse(localStorage.getItem("user"));
 
+const getUserId = () => {
+  const token = localStorage.getItem("token");
+  console.log(token,"tooooken") // Get token from localStorage
+  if (!token) return null;
 
+  try {
+    const decoded = jwtDecode(token); // Decode token
+    return decoded.id; // Return user ID
+  } catch (error) {
+    console.error("Invalid token", error);
+    return null;
+  }
+};
+console.log(getUserId(),"uuuser id")
 const getAllCategories = async () => {
   try {
     const response = await axios.get("http://127.0.0.1:3000/api/categories/getAll");
