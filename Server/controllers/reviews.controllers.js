@@ -7,15 +7,32 @@ module.exports = {
     const { userId, productId, rating, comment } = req.body;
 
     try {
-      const review = await Review.create({
-        userId,
-        productId,
-        rating,
-        comment,
+      // Check if the user has already reviewed the product
+      const existingReview = await db.Review.findOne({
+        where: { userId, productId },
       });
-      res
-        .status(201)
-        .json({ message: "Review submitted successfully!", review });
+
+      if (existingReview) {
+        // Update the existing review
+        await existingReview.update({ rating, comment });
+        res
+          .status(200)
+          .json({
+            message: "Review updated successfully!",
+            review: existingReview,
+          });
+      } else {
+        // Create a new review
+        const review = await db.Review.create({
+          userId,
+          productId,
+          rating,
+          comment,
+        });
+        res
+          .status(201)
+          .json({ message: "Review submitted successfully!", review });
+      }
     } catch (error) {
       console.error("Error submitting review:", error);
       res.status(500).json({ message: "Failed to submit review" });

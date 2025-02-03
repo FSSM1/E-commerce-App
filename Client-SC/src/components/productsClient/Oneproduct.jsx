@@ -1,9 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ProductReviews from "../ProductReviews";
+import AverageRating from "../AverageRating";
+import StarRating from "../StarRating";
+import UserReview from "../UserReview";
 const Oneproduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
   const fetchOneProduct = async (id) => {
     try {
       const response = await axios.get(
@@ -49,9 +54,13 @@ const Oneproduct = () => {
             <p className="text-lg text-gray-600 mt-2">
               Quantity: {product.quantity}
             </p>
-            <p className="text-lg text-gray-600 mt-2">
+            {/* <p className="text-lg text-gray-600 mt-2">
               Rating: ⭐ {product.rating}/5
-            </p>
+            </p> */}
+            <StarRating productId={id} userId={user.id} />
+            <UserReview productId={id} userId={user.id} />
+            <AverageRating productId={id} />
+            <ProductReviews productId={id} />
           </div>
 
           {/* Add to Cart Button */}
@@ -60,8 +69,6 @@ const Oneproduct = () => {
           </button>
         </div>
       </div>
-
-    
     </div>
   );
 };
