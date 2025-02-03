@@ -98,35 +98,31 @@ function Allproduct() {
     <div className="flex h-screen">
       
       {/* Sidebar for Categories */}
-      <div className="w-64 bg-gray-50 p-6 shadow-md fixed h-full overflow-y-auto">
-        <h2 className="text-xl font-bold mb-6 text-gray-800">Categories</h2>
-        <ul className="space-y-2">
-        <li
-              className={`p-3 rounded-lg 00.0
-                0...02100- pointer transition-all 
-                  "bg-blue-500 text-white"
-                "bg-white hover:bg-gray-100 text-gray-700"
-              }`}
-              onClick={() => fetchProducts()}
-            >
-              <span className="font-medium">All</span>
-            </li>
-          {categories.map((category) => (
-            <li
-              key={category.id}
-              className={`p-3 rounded-lg 00.0
-                0...02100- pointer transition-all ${
-                selectedCategory === category.name
-                  ? "bg-blue-500 text-white"
-                  : "bg-white hover:bg-gray-100 text-gray-700"
-              }`}
-              onClick={() => fetchProductsbyCategory(category.id)}
-            >
-              <span className="font-medium">{category.name}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className="w-64 bg-gray-50 p-6 shadow-md fixed left-0 top-[96px] h-full overflow-y-auto">
+  <h2 className="text-xl font-bold mb-6 text-gray-800">Categories</h2>
+  <ul className="space-y-2">
+    <li
+      className={`p-3 rounded-lg cursor-pointer transition-all ${
+        selectedCategory === "" ? "bg-blue-500 text-white" : "bg-white hover:bg-gray-100 text-gray-700"
+      }`}
+      onClick={() => fetchProducts()}
+    >
+      <span className="font-medium">All</span>
+    </li>
+    {categories.map((category) => (
+      <li
+        key={category.id}
+        className={`p-3 rounded-lg cursor-pointer transition-all ${
+          selectedCategory === category.name ? "bg-blue-500 text-white" : "bg-white hover:bg-gray-100 text-gray-700"
+        }`}
+        onClick={() => fetchProductsbyCategory(category.id)}
+      >
+        <span className="font-medium">{category.name}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
       
       {/* Product Grid */}
       <div className="flex-1 ml-64 p-8 overflow-y-auto">
