@@ -10,6 +10,16 @@ import {
   CardContent,
 } from "@mui/material";
 import axios from "axios";
+import Swal from 'sweetalert2';
+
+
+
+
+
+
+
+
+
 
 const Cart = () => {
   const { cartItems, totalItems, totalPrice, dispatch } = useCart();
@@ -39,6 +49,12 @@ const Cart = () => {
               amount: totalPrice,
           });
           window.location.href = response.data.result.link;
+           Swal.fire({
+                  icon: 'success',
+                  title: 'purchase ',
+                  text: 'You have purchased successfully.',
+                  confirmButtonText: 'OK',
+                });
       } catch (error) {
           console.error('Error creating payment:', error);
       }        dispatch({ type: "CLEAR_CART" }); // Clear the cart after purchase
