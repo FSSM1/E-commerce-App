@@ -275,7 +275,7 @@ module.exports = {
       const { token } = req.query;
   
       // Find the user by the reset token
-      const user = await User.findOne({
+      const user = await db.User.findOne({
         where: {
           resetPasswordToken: token,
           resetPasswordExpires: { [db.Sequelize.Op.gt]: Date.now() }, // Check if the token is not expired
