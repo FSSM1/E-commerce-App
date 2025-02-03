@@ -29,6 +29,8 @@ import ResetPassword from "./pages/seller/ResetPassword";
 import AboutClient from "./pages/client/About";
 import AboutSeller from "./pages/seller/About";
 
+import Likes from "./pages/client/Likes"
+
 const router = createBrowserRouter([
   {
     path: "/client",
@@ -83,6 +85,11 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <AboutClient />,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "Likes",
+        element: <Likes />,
         errorElement: <ErrorElement />,
       },
     ],
