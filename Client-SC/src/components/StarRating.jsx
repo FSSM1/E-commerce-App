@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import axios from "axios";
 
-const StarRating = ({ productId, userId }) => {
+const StarRating = ({ productId, userId, onRatingSubmit }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
@@ -37,15 +37,14 @@ const StarRating = ({ productId, userId }) => {
           userId,
           productId,
           rating: ratingValue,
+          comment: "", // Optional: Add a comment field if needed
         }
       );
 
-      if (response.status === 200) {
-        alert("Your review has been updated!");
-      } else if (response.status === 201) {
-        alert("Thank you for your review!");
+      if (response.status === 200 || response.status === 201) {
+        setRating(ratingValue); // Update the displayed rating
+        onRatingSubmit(ratingValue); // Notify the parent component to update the average rating
       }
-      setRating(ratingValue); // Update the displayed rating
     } catch (error) {
       console.error("Error submitting review:", error);
     }

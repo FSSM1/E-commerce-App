@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ProductReviews from "../ProductReviews";
 import AverageRating from "../AverageRating";
 import StarRating from "../StarRating";
 import UserReview from "../UserReview";
 const Oneproduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [averageRating, setAverageRating] = useState(0);
   const user = JSON.parse(localStorage.getItem("user"));
   const fetchOneProduct = async (id) => {
     try {
@@ -23,7 +23,45 @@ const Oneproduct = () => {
 
   useEffect(() => {
     fetchOneProduct(id);
-  }, []);
+    const fetchAverageRating = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/reviews/product/${id}`
+        );
+        const reviews = response.data;
+        if (reviews.length > 0) {
+          const totalRating = reviews.reduce(
+            (sum, review) => sum + review.rating,
+            0
+          );
+          setAverageRating(totalRating / reviews.length);
+        }
+      } catch (error) {
+        console.error("Error fetching average rating:", error);
+      }
+    };
+
+    fetchAverageRating();
+  }, [id]);
+
+  // Callback function to update the average rating
+  const handleRatingSubmit = async (newRating) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/reviews/product/${id}`
+      );
+      const reviews = response.data;
+      if (reviews.length > 0) {
+        const totalRating = reviews.reduce(
+          (sum, review) => sum + review.rating,
+          0
+        );
+        setAverageRating(totalRating / reviews.length);
+      }
+    } catch (error) {
+      console.error("Error updating average rating:", error);
+    }
+  };
 
   if (!product)
     return (
@@ -54,13 +92,13 @@ const Oneproduct = () => {
             <p className="text-lg text-gray-600 mt-2">
               Quantity: {product.quantity}
             </p>
-            {/* <p className="text-lg text-gray-600 mt-2">
-              Rating: ⭐ {product.rating}/5
-            </p> */}
-            <StarRating productId={id} userId={user.id} />
+            <StarRating
+              productId={id}
+              userId={user.id}
+              onRatingSubmit={handleRatingSubmit}
+            />
             <UserReview productId={id} userId={user.id} />
-            <AverageRating productId={id} />
-            <ProductReviews productId={id} />
+            <AverageRating averageRating={averageRating} />
           </div>
 
           {/* Add to Cart Button */}
