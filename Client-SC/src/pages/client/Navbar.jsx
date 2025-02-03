@@ -5,6 +5,8 @@ import { useContext, useState } from "react";
 import { SearchContext } from "../../components/productsClient/SearchContext";
 import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { FiHeart } from "react-icons/fi";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const { setSearchTerm } = useContext(SearchContext);
@@ -85,6 +87,9 @@ const Navbar = () => {
               />
             </svg>
           </div>
+          <NavLink to="/client/Likes" className="flex items-center space-x-2">
+          <FiHeart className="text-red-500 w-6 h-6"  /></NavLink>
+          
           {/* Cart Icon */}
           <div className="hidden lg:flex space-x-8">
             <NavLink to="/client/cart" className="flex items-center space-x-2">

@@ -31,7 +31,7 @@ const likeProduct = async (req, res) => {
 // Get Liked Products for a User
 const getLikedProducts = async (req, res) => {
   try {
-    const { user_id } = req.body;
+    const { user_id } = req.params;
 
     // Fetch all liked product IDs for the user
     const likedProducts = await Likes.findAll({

@@ -6,6 +6,6 @@ const { likeProduct, getLikedProducts } = require("../controllers/likesControlle
 router.post("/toggle", likeProduct);
 
 // Get liked products for a user
-router.get("/", getLikedProducts);
+router.get("/:user_id", getLikedProducts);
 
 module.exports = router;
