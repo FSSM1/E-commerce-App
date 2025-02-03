@@ -28,10 +28,14 @@ const Products = () => {
 
   const fetchproduct = async () => {
     try {
+      console.log(user.role,"roole")
+      if(user.role=="admin"){
+
+        
       const products = await axios.get("http://127.0.0.1:3000/api/admin/getAll");
       console.log("Fetched products:", products.data.data);
       setData(products.data.data);
-      setFilteredData(products.data.data); // Initialize filtered data with all products
+      setFilteredData(products.data.data); }// Initialize filtered data with all products
     } catch (error) {
       console.error("Error fetching products:", error);
     }

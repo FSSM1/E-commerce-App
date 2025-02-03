@@ -28,7 +28,7 @@ const ResetPassword = () => {
 
       if (response.status === 200) {
         setMessage("Password reset successfully. Redirecting to login...");
-        setTimeout(() => navigate("/login"), 3000); // Redirect to login after 3 seconds
+        setTimeout(() => navigate("/client/login"), 3000); // Redirect to login after 3 seconds
       }
     } catch (err) {
       console.error(err);

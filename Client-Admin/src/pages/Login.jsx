@@ -17,15 +17,16 @@ export default function Login() {
         password,
       });
 
-      console.log('res data', response);
-
+      console.log('res data LOGIN', response.data.user.role);
+      
       if (response.status === 200) {
         const { token, user } = response.data;
+       if(response.data.user.role==="admin"){
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", JSON.stringify(token));
       }
-      
-      navigate('/');
+
+      navigate('/');}
     } catch (err) {
       console.error(err);
       if (err.response?.data?.message === "Invalid credentials") {

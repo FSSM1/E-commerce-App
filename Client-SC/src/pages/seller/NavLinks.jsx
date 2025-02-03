@@ -35,6 +35,17 @@ const NavLinks = () => {
             ) : (
               <div></div> // Optional: you can remove this div if you don't need it
             )}
+            {!user ? (
+        <NavLink
+          key="5"
+          to="/seller/login"
+          className="text-gray-700 hover:text-gray-900"
+        >
+          Login
+        </NavLink>
+      ) : (
+        <div></div> // Optional: you can remove this div if you don't need it
+      )}
           </>
         );
 };
