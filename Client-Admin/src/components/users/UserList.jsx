@@ -54,7 +54,7 @@ const UserList = ({ users, onDelete, onEdit, onGetProducts }) => {
                 >
                   Delete
                 </Button>
-                {(user.role === "admin") && (
+                {(user.role === "seller" || user.role==="admin") && (
                   <Button
                     variant="contained"
                     color="secondary"
