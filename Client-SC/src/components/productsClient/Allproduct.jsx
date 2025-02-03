@@ -125,7 +125,7 @@ function Allproduct() {
 
       
       {/* Product Grid */}
-      <div className="flex-1 ml-64 p-8 overflow-y-auto">
+      <div className="flex-1  p-2 overflow-y-auto">
         {currentData.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {currentData.map((el) => (
