@@ -25,7 +25,7 @@ A user-friendly E-Commerce platform designed to make your shopping experience ea
 ## 📁 Getting Started
 1. Clone the repository  
    ```bash
-   git clone https://github.com/jfiras/GameHub.git
+   git clone https://github.com/FSSM1/E-commerce-App.git
    
 2. Follow backend/frontend setup instructions
 
